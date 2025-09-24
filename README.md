@@ -1,82 +1,36 @@
-# Quest4Fun
-📂 Project Setup
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Tech Stack Choice
+## Getting Started
 
-Frontend: Flutter (recommended for kids’ apps – smooth animations, cross-platform).
+First, run the development server:
 
-Backend: Firebase (Auth, Firestore, Storage, Analytics).
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-Local DB: Hive or SQLite for offline progress.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Codespace Configuration
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-Add .devcontainer/devcontainer.json with Flutter SDK + Android tools.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-Pre-install Firebase CLI & Dart extensions.
+## Learn More
 
-Configure GitHub Actions for CI/CD build testing (Android & iOS).
+To learn more about Next.js, take a look at the following resources:
 
-🖼️ Phase 1: UI (Kid-Friendly Screens)
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
- Splash Screen – Fun logo animation with mascot.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
- Onboarding – Avatar picker + child’s name input.
+## Deploy on Vercel
 
- Home Screen – Subject cards (Math, English, EVS), progress bar shown as levels.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
- Learning Screen – Levels arranged as a game map.
-
- Quiz/Game Screen – Drag & drop, matching, multiple-choice.
-
- Rewards Screen – Treasure box with stars, coins, badges.
-
- Parent Dashboard (PIN protected) – Progress reports, weak/strong areas.
-
-🛠️ Phase 2: Core Functionalities
-
- User Profiles – Child + Parent (PIN).
-
- Firebase Auth – PIN login for parent, simple profile for child.
-
- Lesson Progression – Unlock next level only after completing current.
-
- Rewards Engine – Earn coins/badges, store in Firestore + local cache.
-
- Offline Mode – Cache lessons & progress in Hive/SQLite.
-
- Voice Narration – Text-to-speech for instructions.
-
-📊 Phase 3: Backend & Analytics
-
- Firestore Integration – Store progress, stars, levels unlocked.
-
- Storage – Host images, animations, audio clips.
-
- Analytics – Track lesson completion, quiz accuracy, session time.
-
- Parent Reports – Simple charts (weekly/monthly progress).
-
-🎨 UI/UX Rules (Keep in Mind)
-
-Big, tappable buttons with icons.
-
-Bright cartoon colors (blue, yellow, green, orange).
-
-Minimal text – rely on visuals & sounds.
-
-Animations for rewards (claps, fireworks).
-
-Hidden parent section with PIN lock.
-
-📦 Phase 4: Nice-to-Have (Future Scope)
-
- Leaderboards (class/school level).
-
- Teacher mode (assign homework).
-
- Multi-language support (English + Hindi + regional).
-
- AR modules for interactive EVS lessons.
-
-👉 With this roadmap, you can create issues in GitHub and assign them. Codespaces will give a ready dev environment, so your team only focuses on coding features.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
