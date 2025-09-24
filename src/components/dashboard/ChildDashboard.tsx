@@ -52,8 +52,8 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject, index, onClick }) =>
       <Card className={`${subject.bgColor} border-0 cursor-pointer overflow-hidden relative`} onClick={onClick}>
         <div className="p-6">
           {/* Subject Icon */}
-          <div className="w-12 h-12 bg-white/30 rounded-xl flex items-center justify-center mb-4">
-            <Icon size={24} className="text-white drop-shadow" />
+          <div className="w-12 h-12 bg-white/30 rounded-xl flex items-center justify-center mb-4 text-white [&>svg]:drop-shadow">
+            <Icon size={24} />
           </div>
 
           {/* Subject Info */}
@@ -107,8 +107,8 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, color, 
     <Card className={`${bgColor} border-0 text-white`}>
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
-          <div className="w-12 h-12 bg-white/30 rounded-xl flex items-center justify-center">
-            <Icon size={24} className="text-white drop-shadow" />
+          <div className="w-12 h-12 bg-white/30 rounded-xl flex items-center justify-center text-white [&>svg]:drop-shadow">
+            <Icon size={24} />
           </div>
           {trend && (
             <span className="text-white text-sm drop-shadow">+{trend}</span>

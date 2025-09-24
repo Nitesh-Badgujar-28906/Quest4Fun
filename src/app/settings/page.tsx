@@ -8,6 +8,7 @@ import Button from '@/components/ui/Button';
 import Avatar from '@/components/ui/Avatar';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { Child, Parent } from '@/types';
 import { motion } from 'framer-motion';
 import { 
   User, 
@@ -88,6 +89,15 @@ export default function SettingsPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState('');
   const [selectedTab, setSelectedTab] = useState('profile');
+
+  // Type guard functions
+  const isChild = (user: any): user is Child => {
+    return userType === 'child' && user && 'avatar' in user;
+  };
+
+  const isParent = (user: any): user is Parent => {
+    return userType === 'parent' && user && 'email' in user;
+  };
 
   useEffect(() => {
     if (!isLoading && (!user || userType !== 'child')) {
@@ -209,7 +219,7 @@ export default function SettingsPage() {
                     <div className="flex items-center gap-6 mb-6">
                       <div className="relative">
                         <Avatar
-                          src={user.avatar}
+                          src={isChild(user) ? user.avatar : '/images/avatars/default-parent.png'}
                           alt={user.name}
                           size="xl"
                           className="border-4 border-blue-200"
@@ -250,7 +260,7 @@ export default function SettingsPage() {
                         ) : (
                           <div>
                             <h3 className="text-2xl font-bold text-gray-800 mb-1">{user.name}</h3>
-                            <p className="text-gray-600 mb-4">Level {user.currentLevel || 1} Learner</p>
+                            <p className="text-gray-600 mb-4">Level {isChild(user) ? (user as any).currentLevel || 1 : 1} Learner</p>
                             <Button 
                               variant="secondary" 
                               onClick={() => setIsEditing(true)}
@@ -266,15 +276,15 @@ export default function SettingsPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-blue-50 rounded-lg">
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-blue-600">{user.totalStars || 0}</div>
+                        <div className="text-2xl font-bold text-blue-600">{isChild(user) ? user.totalStars : 0}</div>
                         <div className="text-sm text-gray-600">Stars Earned</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-green-600">{user.totalCoins || 0}</div>
+                        <div className="text-2xl font-bold text-green-600">{isChild(user) ? user.totalCoins : 0}</div>
                         <div className="text-sm text-gray-600">Coins</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-orange-600">{user.currentStreak || 0}</div>
+                        <div className="text-2xl font-bold text-orange-600">{isChild(user) ? user.currentStreak : 0}</div>
                         <div className="text-sm text-gray-600">Day Streak</div>
                       </div>
                     </div>

@@ -340,7 +340,7 @@ export default function LearnPage() {
                       <Button 
                         className="w-full flex items-center justify-center gap-2"
                         onClick={(e) => {
-                          e.stopPropagation();
+                          e?.stopPropagation();
                           handleActivityClick(activity.id);
                         }}
                       >
