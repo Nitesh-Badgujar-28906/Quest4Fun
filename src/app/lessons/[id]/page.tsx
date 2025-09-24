@@ -7,7 +7,6 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { redirect, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import { 
   ArrowLeft, 
   ArrowRight,
@@ -20,6 +19,14 @@ import {
   Circle
 } from 'lucide-react';
 
+interface LessonData {
+  numbers?: number[];
+  objects?: string[];
+  problems?: Array<{ num1: number; num2: number; answer: number }>;
+  letters?: string[];
+  [key: string]: unknown;
+}
+
 interface Lesson {
   id: string;
   title: string;
@@ -30,7 +37,7 @@ interface Lesson {
   duration: number;
   content: {
     type: string;
-    data: any;
+    data: LessonData;
   };
   isCompleted: boolean;
   stars: number;
@@ -166,7 +173,20 @@ const getLessonData = (lessonId: string): Lesson => {
   return lessons[lessonId] || lessons['math-1'];
 };
 
-const CountingActivity = ({ numbers, objects }: any) => {
+interface CountingActivityProps {
+  numbers: number[];
+  objects: string[];
+}
+
+interface AdditionActivityProps {
+  problems: Array<{ num1: number; num2: number; answer: number }>;
+}
+
+interface AlphabetActivityProps {
+  letters: Array<{ letter: string; sound: string; example: string }>;
+}
+
+const CountingActivity = ({ numbers, objects }: CountingActivityProps) => {
   const [currentNumber, setCurrentNumber] = useState(1);
   
   return (
@@ -203,7 +223,7 @@ const CountingActivity = ({ numbers, objects }: any) => {
   );
 };
 
-const AdditionActivity = ({ problems }: any) => {
+const AdditionActivity = ({ problems }: AdditionActivityProps) => {
   const [currentProblem, setCurrentProblem] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   
@@ -253,7 +273,7 @@ const AdditionActivity = ({ problems }: any) => {
   );
 };
 
-const AlphabetActivity = ({ letters }: any) => {
+const AlphabetActivity = ({ letters }: AlphabetActivityProps) => {
   const [currentLetter, setCurrentLetter] = useState(0);
   
   return (

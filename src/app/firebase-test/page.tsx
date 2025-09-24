@@ -6,6 +6,7 @@ import { db, auth } from '@/lib/firebase';
 import { signInAnonymously } from 'firebase/auth';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
+import Link from 'next/link';
 
 interface TestResult {
   test: string;
@@ -178,7 +179,7 @@ export default function FirebaseTest() {
   useEffect(() => {
     // Auto-run tests on page load
     runFirebaseTests();
-  }, []);
+  }, [runFirebaseTests]);
 
   const getStatusIcon = (status: TestResult['status']) => {
     switch (status) {
@@ -244,7 +245,7 @@ export default function FirebaseTest() {
           
           {testResults.length === 0 && !isRunning && (
             <p className="text-gray-500 text-center py-8">
-              No tests run yet. Click "Re-run Tests" to start.
+              No tests run yet. Click &quot;Re-run Tests&quot; to start.
             </p>
           )}
 
@@ -296,12 +297,12 @@ export default function FirebaseTest() {
             </div>
             <div className="flex items-center gap-3">
               <span className="text-purple-600">🏠</span>
-              <a 
+              <Link 
                 href="/" 
                 className="text-blue-600 hover:underline"
               >
                 Go back to the main app
-              </a>
+              </Link>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-orange-600">🔧</span>

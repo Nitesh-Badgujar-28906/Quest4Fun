@@ -14,9 +14,6 @@ import {
   User, 
   Bell, 
   Volume2, 
-  VolumeX,
-  Moon,
-  Sun,
   Shield,
   HelpCircle,
   LogOut,
@@ -25,10 +22,10 @@ import {
   X,
   Camera,
   Palette,
-  Globe,
   Lock,
   Mail,
-  Phone
+  Phone,
+  type LucideIcon
 } from 'lucide-react';
 
 interface UserSettings {
@@ -91,11 +88,11 @@ export default function SettingsPage() {
   const [selectedTab, setSelectedTab] = useState('profile');
 
   // Type guard functions
-  const isChild = (user: any): user is Child => {
+  const isChild = (user: Child | Parent | null): user is Child => {
     return userType === 'child' && user && 'avatar' in user;
   };
 
-  const isParent = (user: any): user is Parent => {
+  const isParent = (user: Child | Parent | null): user is Parent => {
     return userType === 'parent' && user && 'email' in user;
   };
 
@@ -126,7 +123,7 @@ export default function SettingsPage() {
     return null; // Will redirect
   }
 
-  const handleSettingChange = (category: keyof UserSettings, setting: string, value: any) => {
+  const handleSettingChange = (category: keyof UserSettings, setting: string, value: boolean | string) => {
     setSettings(prev => ({
       ...prev,
       [category]: {
@@ -146,7 +143,7 @@ export default function SettingsPage() {
     logout();
   };
 
-  const TabButton = ({ id, label, icon: Icon }: { id: string; label: string; icon: any }) => (
+  const TabButton = ({ id, label, icon: Icon }: { id: string; label: string; icon: LucideIcon }) => (
     <button
       onClick={() => setSelectedTab(id)}
       className={`flex items-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
@@ -260,7 +257,7 @@ export default function SettingsPage() {
                         ) : (
                           <div>
                             <h3 className="text-2xl font-bold text-gray-800 mb-1">{user.name}</h3>
-                            <p className="text-gray-600 mb-4">Level {isChild(user) ? (user as any).currentLevel || 1 : 1} Learner</p>
+                            <p className="text-gray-600 mb-4">Level {isChild(user) ? 1 : 1} Learner</p>
                             <Button 
                               variant="secondary" 
                               onClick={() => setIsEditing(true)}
@@ -356,7 +353,7 @@ export default function SettingsPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <h3 className="font-semibold text-gray-800">Weekly Progress Report</h3>
-                          <p className="text-sm text-gray-600">Get a summary of your week's learning</p>
+                          <p className="text-sm text-gray-600">Get a summary of your week&apos;s learning</p>
                         </div>
                         <ToggleSwitch 
                           enabled={settings.notifications.weeklyProgress}

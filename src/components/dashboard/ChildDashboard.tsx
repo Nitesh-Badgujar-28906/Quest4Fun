@@ -125,6 +125,8 @@ export const ChildDashboard: React.FC = () => {
   const { user } = useAuth();
   
   if (!user) return null;
+
+  const router = useRouter();
   
   const child = user as { 
     name: string; 
@@ -181,8 +183,6 @@ export const ChildDashboard: React.FC = () => {
       stars: 28
     }
   ];
-
-  const router = useRouter();
 
   const handleSubjectClick = (subjectId: string) => {
     console.log(`Opening subject: ${subjectId}`);

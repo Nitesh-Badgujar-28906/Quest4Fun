@@ -288,7 +288,7 @@ export const ParentDashboard: React.FC = () => {
               <Button
                 key={tab.id}
                 variant={activeTab === tab.id ? 'primary' : 'secondary'}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as 'overview' | 'progress' | 'reports' | 'settings')}
                 className="mr-2 last:mr-0"
               >
                 <Icon size={20} className="mr-2" />

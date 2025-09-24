@@ -63,7 +63,7 @@ export interface Lesson {
   title: string;
   description: string;
   type: 'quiz' | 'game' | 'story' | 'practice' | 'interactive';
-  content: LessonContent | any; // Allow flexible content types
+  content: LessonContent | Record<string, unknown>; // Allow flexible content types
   duration: number; // in minutes
   maxStars?: number;
   audioUrl?: string;
