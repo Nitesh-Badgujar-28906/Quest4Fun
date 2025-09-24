@@ -89,11 +89,7 @@ export default function SettingsPage() {
 
   // Type guard functions
   const isChild = (user: Child | Parent | null): user is Child => {
-    return userType === 'child' && user && 'avatar' in user;
-  };
-
-  const isParent = (user: Child | Parent | null): user is Parent => {
-    return userType === 'parent' && user && 'email' in user;
+    return userType === 'child' && user !== null && 'avatar' in user;
   };
 
   useEffect(() => {
@@ -123,7 +119,7 @@ export default function SettingsPage() {
     return null; // Will redirect
   }
 
-  const handleSettingChange = (category: keyof UserSettings, setting: string, value: boolean | string) => {
+  const handleSettingChange = (category: keyof UserSettings, setting: string, value: boolean | string | number) => {
     setSettings(prev => ({
       ...prev,
       [category]: {

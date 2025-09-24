@@ -47,15 +47,6 @@ interface Subject {
   lessons: Lesson[];
 }
 
-const getSubjectIcon = (subjectId: string) => {
-  const icons: { [key: string]: LucideIcon } = {
-    'math': Calculator,
-    'english': BookOpen,
-    'science': Globe,
-    'art': Palette,
-  };
-  return icons[subjectId] || BookOpen;
-};
 
 const getSubjectData = (subjectId: string): Subject => {
   const subjects: { [key: string]: Subject } = {

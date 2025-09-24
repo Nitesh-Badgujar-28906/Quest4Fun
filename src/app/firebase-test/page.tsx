@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { collection, addDoc, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '@/lib/firebase';
 import { signInAnonymously } from 'firebase/auth';
@@ -23,7 +23,7 @@ export default function FirebaseTest() {
     setTestResults(prev => [...prev, result]);
   };
 
-  const runFirebaseTests = async () => {
+  const runFirebaseTests = useCallback(async () => {
     setIsRunning(true);
     setTestResults([]);
 
@@ -174,7 +174,7 @@ export default function FirebaseTest() {
     }
 
     setIsRunning(false);
-  };
+  }, []);
 
   useEffect(() => {
     // Auto-run tests on page load

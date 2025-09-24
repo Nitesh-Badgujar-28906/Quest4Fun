@@ -8,20 +8,15 @@ import ProgressBar from '@/components/ui/ProgressBar';
 import Avatar from '@/components/ui/Avatar';
 import { useAuth } from '@/context/AuthContext';
 import {
-  User,
   TrendingUp,
-  Clock,
   Target,
   BookOpen,
-  Award,
-  Calendar,
   Settings,
   Download,
   Eye,
   Star,
   Trophy,
   BarChart3,
-  PieChart,
   Users,
   Shield,
   Timer,

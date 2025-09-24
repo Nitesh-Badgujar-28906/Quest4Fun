@@ -13,14 +13,8 @@ import {
   Crown,
   Target,
   BookOpen,
-  Calendar,
-  TrendingUp,
   Zap,
-  Heart,
-  Shield,
   Sparkles,
-  Gift,
-  Users,
   Medal
 } from 'lucide-react';
 

@@ -23,7 +23,7 @@ interface LessonData {
   numbers?: number[];
   objects?: string[];
   problems?: Array<{ num1: number; num2: number; answer: number }>;
-  letters?: string[];
+  letters?: Array<{ letter: string; sound: string; example: string }>;
   [key: string]: unknown;
 }
 
@@ -80,10 +80,10 @@ const getLessonData = (lessonId: string): Lesson => {
         type: 'addition',
         data: {
           problems: [
-            { a: 1, b: 1, answer: 2 },
-            { a: 2, b: 2, answer: 4 },
-            { a: 3, b: 1, answer: 4 },
-            { a: 2, b: 3, answer: 5 }
+            { num1: 1, num2: 1, answer: 2 },
+            { num1: 2, num2: 2, answer: 4 },
+            { num1: 3, num2: 1, answer: 4 },
+            { num1: 2, num2: 3, answer: 5 }
           ]
         }
       }
@@ -142,7 +142,11 @@ const getLessonData = (lessonId: string): Lesson => {
       content: {
         type: 'alphabet',
         data: {
-          letters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+          letters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(letter => ({
+            letter,
+            sound: `${letter.toLowerCase()} sound`,
+            example: `${letter} word`
+          }))
         }
       }
     },
@@ -160,7 +164,7 @@ const getLessonData = (lessonId: string): Lesson => {
       content: {
         type: 'phonics',
         data: {
-          sounds: [
+          letters: [
             { letter: 'A', sound: 'ay', example: 'Apple' },
             { letter: 'B', sound: 'buh', example: 'Ball' },
             { letter: 'C', sound: 'kuh', example: 'Cat' }
@@ -174,29 +178,30 @@ const getLessonData = (lessonId: string): Lesson => {
 };
 
 interface CountingActivityProps {
-  numbers: number[];
-  objects: string[];
+  numbers?: number[];
+  objects?: string[];
 }
 
 interface AdditionActivityProps {
-  problems: Array<{ num1: number; num2: number; answer: number }>;
+  problems?: Array<{ num1: number; num2: number; answer: number }>;
 }
 
 interface AlphabetActivityProps {
-  letters: Array<{ letter: string; sound: string; example: string }>;
+  letters?: Array<{ letter: string; sound: string; example: string }>;
 }
 
-const CountingActivity = ({ numbers, objects }: CountingActivityProps) => {
+const CountingActivity = ({ numbers = [1, 2, 3], objects = ['🍎'] }: CountingActivityProps) => {
   const [currentNumber, setCurrentNumber] = useState(1);
+  const currentNumberToShow = numbers[currentNumber - 1] || 1;
   
   return (
     <div className="text-center p-8">
       <h3 className="text-2xl font-bold mb-8 text-gray-800">Count the Objects!</h3>
       
       <div className="mb-8">
-        <div className="text-6xl font-bold text-blue-600 mb-4">{currentNumber}</div>
+        <div className="text-6xl font-bold text-blue-600 mb-4">{currentNumberToShow}</div>
         <div className="flex justify-center gap-2 mb-6">
-          {Array(currentNumber).fill(0).map((_, i) => (
+          {Array(currentNumberToShow).fill(0).map((_, i) => (
             <span key={i} className="text-4xl animate-bounce" style={{ animationDelay: `${i * 0.1}s` }}>
               {objects[i % objects.length]}
             </span>
@@ -213,8 +218,8 @@ const CountingActivity = ({ numbers, objects }: CountingActivityProps) => {
           Previous
         </Button>
         <Button
-          onClick={() => setCurrentNumber(Math.min(10, currentNumber + 1))}
-          disabled={currentNumber === 10}
+          onClick={() => setCurrentNumber(Math.min(numbers.length, currentNumber + 1))}
+          disabled={currentNumber === numbers.length}
         >
           Next
         </Button>
@@ -223,7 +228,7 @@ const CountingActivity = ({ numbers, objects }: CountingActivityProps) => {
   );
 };
 
-const AdditionActivity = ({ problems }: AdditionActivityProps) => {
+const AdditionActivity = ({ problems = [] }: AdditionActivityProps) => {
   const [currentProblem, setCurrentProblem] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   
@@ -235,18 +240,18 @@ const AdditionActivity = ({ problems }: AdditionActivityProps) => {
       
       <div className="mb-8">
         <div className="text-4xl font-bold text-blue-600 mb-6">
-          {problem.a} + {problem.b} = {showAnswer ? problem.answer : '?'}
+          {problem.num1} + {problem.num2} = {showAnswer ? problem.answer : '?'}
         </div>
         
         <div className="flex justify-center gap-8 mb-6">
           <div className="flex gap-1">
-            {Array(problem.a).fill(0).map((_, i) => (
+            {Array(problem.num1).fill(0).map((_, i) => (
               <Circle key={i} className="w-8 h-8 fill-blue-200 text-blue-400" />
             ))}
           </div>
           <span className="text-2xl">+</span>
           <div className="flex gap-1">
-            {Array(problem.b).fill(0).map((_, i) => (
+            {Array(problem.num2).fill(0).map((_, i) => (
               <Circle key={i} className="w-8 h-8 fill-green-200 text-green-400" />
             ))}
           </div>
@@ -273,7 +278,7 @@ const AdditionActivity = ({ problems }: AdditionActivityProps) => {
   );
 };
 
-const AlphabetActivity = ({ letters }: AlphabetActivityProps) => {
+const AlphabetActivity = ({ letters = [] }: AlphabetActivityProps) => {
   const [currentLetter, setCurrentLetter] = useState(0);
   
   return (
@@ -282,10 +287,13 @@ const AlphabetActivity = ({ letters }: AlphabetActivityProps) => {
       
       <div className="mb-8">
         <div className="text-8xl font-bold text-green-600 mb-4">
-          {letters[currentLetter]}
+          {letters[currentLetter].letter}
         </div>
         <div className="text-xl text-gray-600">
           Letter {currentLetter + 1} of {letters.length}
+        </div>
+        <div className="text-lg text-gray-500 mb-4">
+          Sound: &quot;{letters[currentLetter].sound}&quot; • Example: {letters[currentLetter].example}
         </div>
       </div>
 
@@ -311,11 +319,11 @@ const AlphabetActivity = ({ letters }: AlphabetActivityProps) => {
 const LessonContent = ({ lesson }: { lesson: Lesson }) => {
   switch (lesson.content.type) {
     case 'counting':
-      return <CountingActivity {...lesson.content.data} />;
+      return <CountingActivity numbers={lesson.content.data.numbers} objects={lesson.content.data.objects} />;
     case 'addition':
-      return <AdditionActivity {...lesson.content.data} />;
+      return <AdditionActivity problems={lesson.content.data.problems} />;
     case 'alphabet':
-      return <AlphabetActivity {...lesson.content.data} />;
+      return <AlphabetActivity letters={lesson.content.data.letters} />;
     default:
       return (
         <div className="text-center p-8">

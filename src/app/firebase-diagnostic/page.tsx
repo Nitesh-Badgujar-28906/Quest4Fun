@@ -67,8 +67,14 @@ export default function FirebaseDiagnostic() {
       });
     } catch (error: unknown) {
       let errorMessage = 'Unknown authentication error';
-      if (error && typeof error === 'object' && 'code' in error) {
+      let errorCode = 'unknown';
+      let errorMessageText = 'Unknown error';
+      
+      if (error && typeof error === 'object' && 'code' in error && 'message' in error) {
         const firebaseError = error as { code: string; message: string };
+        errorCode = firebaseError.code;
+        errorMessageText = firebaseError.message;
+        
         if (firebaseError.code === 'auth/operation-not-allowed') {
           errorMessage = 'Anonymous authentication is not enabled. Enable it in Firebase Console → Authentication → Sign-in method';
         } else if (firebaseError.code === 'auth/network-request-failed') {
@@ -82,7 +88,7 @@ export default function FirebaseDiagnostic() {
         test: 'Anonymous Authentication',
         status: 'error',
         message: errorMessage,
-        error: `${error.code}: ${error.message}`
+        error: `${errorCode}: ${errorMessageText}`
       });
     }
 

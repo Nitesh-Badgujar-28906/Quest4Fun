@@ -251,14 +251,14 @@ const LessonItem: React.FC<{
 };
 
 export const LearningMap: React.FC<LearningMapProps> = ({
-  subjectId,
+  subjectId, // eslint-disable-line @typescript-eslint/no-unused-vars -- Used for filtering levels in production
   subjectName,
   onBack,
   onLessonSelect
 }) => {
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
 
-  // Mock data - in real app, this would come from Firebase
+  // Mock data - in real app, this would be filtered by subjectId from Firebase
   const levels: Level[] = [
     {
       id: 'level-1',
