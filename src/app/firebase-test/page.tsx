@@ -15,7 +15,12 @@ interface TestResult {
   duration?: number;
 }
 
+/* eslint-disable react-hooks/rules-of-hooks */
+// This is a development-only page that is blocked in production
 export default function FirebaseTest() {
+  const [testResults, setTestResults] = useState<TestResult[]>([]);
+  const [isRunning, setIsRunning] = useState(false);
+
   // Restrict to development environment only
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -26,9 +31,6 @@ export default function FirebaseTest() {
   if (process.env.NODE_ENV === 'production') {
     return null;
   }
-
-  const [testResults, setTestResults] = useState<TestResult[]>([]);
-  const [isRunning, setIsRunning] = useState(false);
 
   const addTestResult = (result: TestResult) => {
     setTestResults(prev => [...prev, result]);
