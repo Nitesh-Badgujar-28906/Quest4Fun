@@ -21,6 +21,7 @@ import {
   Zap,
   Diamond,
   Sparkles,
+  Calendar,
   LucideIcon
 } from 'lucide-react';
 
