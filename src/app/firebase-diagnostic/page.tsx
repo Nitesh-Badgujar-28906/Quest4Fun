@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { redirect } from 'next/navigation';
 import { auth, db } from '@/lib/firebase';
 import { signInAnonymously, signOut } from 'firebase/auth';
 import { collection, addDoc, getDocs, doc, setDoc } from 'firebase/firestore';
@@ -15,6 +16,17 @@ interface DiagnosticResult {
 }
 
 export default function FirebaseDiagnostic() {
+  // Restrict to development environment only
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      redirect('/');
+    }
+  }, []);
+
+  if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
+
   const [results, setResults] = useState<DiagnosticResult[]>([]);
   const [isRunning, setIsRunning] = useState(false);
 

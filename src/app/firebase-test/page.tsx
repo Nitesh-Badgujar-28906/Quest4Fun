@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { redirect } from 'next/navigation';
 import { collection, addDoc, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '@/lib/firebase';
 import { signInAnonymously } from 'firebase/auth';
@@ -15,6 +16,17 @@ interface TestResult {
 }
 
 export default function FirebaseTest() {
+  // Restrict to development environment only
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      redirect('/');
+    }
+  }, []);
+
+  if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
+
   const [testResults, setTestResults] = useState<TestResult[]>([]);
   const [isRunning, setIsRunning] = useState(false);
 

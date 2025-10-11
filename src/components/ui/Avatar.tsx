@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
 
@@ -31,6 +31,7 @@ const Avatar: React.FC<AvatarProps> = ({
   badge,
   online
 }) => {
+  const [imageError, setImageError] = useState(false);
   const sizeClasses = {
     xs: 'w-6 h-6',
     sm: 'w-8 h-8',
@@ -83,14 +84,13 @@ const Avatar: React.FC<AvatarProps> = ({
         `}
         onClick={onClick}
       >
-        {src ? (
+        {src && !imageError ? (
           <img
             src={src}
             alt={alt}
             className="w-full h-full object-cover"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.style.display = 'none';
+            onError={() => {
+              setImageError(true);
             }}
           />
         ) : fallback ? (

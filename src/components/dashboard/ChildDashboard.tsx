@@ -123,6 +123,7 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, color, 
 
 export const ChildDashboard: React.FC = () => {
   const { user } = useAuth();
+  const router = useRouter(); // ✅ Moved before conditional return to fix React Hook Rules violation
   
   if (!user) return null;
   
@@ -181,8 +182,6 @@ export const ChildDashboard: React.FC = () => {
       stars: 28
     }
   ];
-
-  const router = useRouter();
 
   const handleSubjectClick = (subjectId: string) => {
     console.log(`Opening subject: ${subjectId}`);
