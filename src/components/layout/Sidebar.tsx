@@ -20,7 +20,7 @@ interface SidebarProps {
   onNavigate: (page: string) => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ onNavigate }) => {
   const { user, userType, logout } = useAuth();
   const router = useRouter();
   const pathname = usePathname();

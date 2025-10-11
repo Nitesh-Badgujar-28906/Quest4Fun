@@ -123,8 +123,7 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, color, 
 
 export const ChildDashboard: React.FC = () => {
   const { user } = useAuth();
-  
-  if (!user) return null;
+  const router = useRouter();
   
   const child = user as { 
     name: string; 
@@ -132,7 +131,7 @@ export const ChildDashboard: React.FC = () => {
     totalCoins?: number; 
     currentStreak?: number; 
     badges?: string[]; 
-  };
+  } | null;
 
   // Mock subjects data - in real app, this would come from Firebase
   const subjects = [
@@ -181,8 +180,8 @@ export const ChildDashboard: React.FC = () => {
       stars: 28
     }
   ];
-
-  const router = useRouter();
+  
+  if (!user) return null;
 
   const handleSubjectClick = (subjectId: string) => {
     console.log(`Opening subject: ${subjectId}`);

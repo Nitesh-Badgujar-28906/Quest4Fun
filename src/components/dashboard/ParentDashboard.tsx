@@ -8,20 +8,15 @@ import ProgressBar from '@/components/ui/ProgressBar';
 import Avatar from '@/components/ui/Avatar';
 import { useAuth } from '@/context/AuthContext';
 import {
-  User,
   TrendingUp,
-  Clock,
   Target,
   BookOpen,
-  Award,
-  Calendar,
   Settings,
   Download,
   Eye,
   Star,
   Trophy,
   BarChart3,
-  PieChart,
   Users,
   Shield,
   Timer,
@@ -288,7 +283,7 @@ export const ParentDashboard: React.FC = () => {
               <Button
                 key={tab.id}
                 variant={activeTab === tab.id ? 'primary' : 'secondary'}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as 'overview' | 'analytics' | 'settings')}
                 className="mr-2 last:mr-0"
               >
                 <Icon size={20} className="mr-2" />

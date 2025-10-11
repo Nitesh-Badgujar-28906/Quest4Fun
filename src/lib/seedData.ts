@@ -2,8 +2,6 @@ import { collection, addDoc, writeBatch, doc } from 'firebase/firestore';
 import { db } from './firebase';
 import { 
   sampleSubjects, 
-  sampleMathLessonsJKG, 
-  sampleEnglishLessonsJKG,
   sampleAvatars,
   sampleBadges,
   curriculumStructure,
