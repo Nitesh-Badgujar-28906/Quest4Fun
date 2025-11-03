@@ -67,7 +67,7 @@ const seedData = {
         difficultyLevel: 'medium'
       }
     }
-  ] as Child[],
+  ] as unknown as Child[],
 
   // Sample parent
   parents: [
@@ -120,7 +120,7 @@ const seedData = {
       grades: ['JKG', 'LKG', '1st', '2nd', '3rd', '4th'],
       isActive: true
     }
-  ] as Subject[],
+  ] as unknown as Subject[],
 
   // Sample levels
   levels: [
@@ -144,7 +144,7 @@ const seedData = {
       isActive: true,
       estimatedDuration: 25
     }
-  ] as Level[],
+  ] as unknown as Level[],
 
   // Sample lessons
   lessons: [
@@ -182,7 +182,7 @@ const seedData = {
       isActive: true,
       createdAt: new Date()
     }
-  ] as Lesson[]
+  ] as unknown as Lesson[]
 };
 
 export default function DataSeeder() {

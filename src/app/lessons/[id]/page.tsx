@@ -166,7 +166,7 @@ const getLessonData = (lessonId: string): Lesson => {
   return lessons[lessonId] || lessons['math-1'];
 };
 
-const CountingActivity = ({ numbers, objects }: { numbers: number[]; objects: string[] }) => {
+const CountingActivity = ({ objects = [] }: { numbers?: number[]; objects?: string[] }) => {
   const [currentNumber, setCurrentNumber] = useState(1);
   
   return (
@@ -203,7 +203,7 @@ const CountingActivity = ({ numbers, objects }: { numbers: number[]; objects: st
   );
 };
 
-const AdditionActivity = ({ problems }: { problems: Array<{ num1: number; num2: number; answer: number }> }) => {
+const AdditionActivity = ({ problems = [] }: { problems?: Array<{ a: number; b: number; answer: number }> }) => {
   const [currentProblem, setCurrentProblem] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   
@@ -253,7 +253,7 @@ const AdditionActivity = ({ problems }: { problems: Array<{ num1: number; num2: 
   );
 };
 
-const AlphabetActivity = ({ letters }: { letters: string[] }) => {
+const AlphabetActivity = ({ letters = [] }: { letters?: string[] }) => {
   const [currentLetter, setCurrentLetter] = useState(0);
   
   return (
@@ -313,13 +313,18 @@ const LessonContent = ({ lesson }: { lesson: Lesson }) => {
 export default function LessonPage({ 
   params 
 }: { 
-  params: { id: string } 
+  params: Promise<{ id: string }> 
 }) {
   const { user, userType, isLoading } = useAuth();
   const router = useRouter();
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [lessonId, setLessonId] = useState<string | null>(null);
+
+  useEffect(() => {
+    params.then(p => setLessonId(p.id));
+  }, [params]);
 
   useEffect(() => {
     if (!isLoading && (!user || userType !== 'child')) {
@@ -328,10 +333,10 @@ export default function LessonPage({
   }, [user, userType, isLoading]);
 
   useEffect(() => {
-    if (params.id) {
-      setLesson(getLessonData(params.id));
+    if (lessonId) {
+      setLesson(getLessonData(lessonId));
     }
-  }, [params.id]);
+  }, [lessonId]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;

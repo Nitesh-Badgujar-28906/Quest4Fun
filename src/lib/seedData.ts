@@ -2,8 +2,6 @@ import { collection, addDoc, writeBatch, doc } from 'firebase/firestore';
 import { db } from './firebase';
 import { 
   sampleSubjects, 
-  sampleMathLessonsJKG, 
-  sampleEnglishLessonsJKG,
   sampleAvatars,
   sampleBadges,
   curriculumStructure,
@@ -178,7 +176,6 @@ const seedDailyChallenges = async () => {
 // Utility function to check if database is already seeded
 export const isDatabaseSeeded = async (): Promise<boolean> => {
   try {
-    const subjectsSnapshot = await collection(db, 'subjects');
     // This is a simple check - in production you'd want more robust verification
     return false; // For now, always allow seeding
   } catch (error) {

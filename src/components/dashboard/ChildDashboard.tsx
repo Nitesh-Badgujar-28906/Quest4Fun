@@ -26,7 +26,7 @@ interface SubjectCardProps {
   subject: {
     id: string;
     name: string;
-    icon: React.ComponentType<{ size?: number }>;
+    icon: React.ComponentType<{ size?: number; className?: string }>;
     color: string;
     bgColor: string;
     progress: number;
@@ -92,7 +92,7 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject, index, onClick }) =>
 interface StatsCardProps {
   title: string;
   value: string | number;
-  icon: React.ComponentType<{ size?: number }>;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
   color: string;
   bgColor: string;
   trend?: string;

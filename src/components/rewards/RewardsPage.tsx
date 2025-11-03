@@ -14,9 +14,7 @@ import {
   Target,
   BookOpen,
   Zap,
-  Shield,
   Sparkles,
-  Gift,
   Medal
 } from 'lucide-react';
 

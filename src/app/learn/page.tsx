@@ -340,10 +340,7 @@ export default function LearnPage() {
                       {/* Start Button */}
                       <Button 
                         className="w-full flex items-center justify-center gap-2"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleActivityClick(activity.id);
-                        }}
+                        onClick={() => handleActivityClick(activity.id)}
                       >
                         <Play className="w-4 h-4" />
                         Start Activity

@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { signInAnonymously, signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { getChild, getParent } from '@/lib/firestore';
-import { Child, Parent, AuthState } from '@/types';
+import { Parent, AuthState } from '@/types';
 
 interface AuthContextType extends AuthState {
   loginAsChild: (childId: string) => Promise<void>;
