@@ -251,7 +251,6 @@ const LessonItem: React.FC<{
 };
 
 export const LearningMap: React.FC<LearningMapProps> = ({
-  subjectId,
   subjectName,
   onBack,
   onLessonSelect

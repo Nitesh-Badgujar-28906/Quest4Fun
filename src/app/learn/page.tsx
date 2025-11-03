@@ -23,7 +23,8 @@ import {
   Trophy,
   Play,
   Users,
-  Zap
+  Zap,
+  LucideIcon
 } from 'lucide-react';
 
 interface LearningActivity {
@@ -34,7 +35,7 @@ interface LearningActivity {
   subject: string;
   difficulty: 'easy' | 'medium' | 'hard';
   duration: number;
-  icon: any;
+  icon: LucideIcon;
   color: string;
   bgColor: string;
   isNew?: boolean;
@@ -339,10 +340,7 @@ export default function LearnPage() {
                       {/* Start Button */}
                       <Button 
                         className="w-full flex items-center justify-center gap-2"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleActivityClick(activity.id);
-                        }}
+                        onClick={() => handleActivityClick(activity.id)}
                       >
                         <Play className="w-4 h-4" />
                         Start Activity

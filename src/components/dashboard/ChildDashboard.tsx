@@ -26,7 +26,7 @@ interface SubjectCardProps {
   subject: {
     id: string;
     name: string;
-    icon: React.ComponentType<{ size?: number }>;
+    icon: React.ComponentType<{ size?: number; className?: string }>;
     color: string;
     bgColor: string;
     progress: number;
@@ -92,13 +92,13 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject, index, onClick }) =>
 interface StatsCardProps {
   title: string;
   value: string | number;
-  icon: React.ComponentType<{ size?: number }>;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
   color: string;
   bgColor: string;
   trend?: string;
 }
 
-const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, color, bgColor, trend }) => (
+const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, bgColor, trend }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.9 }}
     animate={{ opacity: 1, scale: 1 }}
@@ -123,6 +123,7 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, color, 
 
 export const ChildDashboard: React.FC = () => {
   const { user } = useAuth();
+  const router = useRouter();
   
   if (!user) return null;
   
@@ -181,8 +182,6 @@ export const ChildDashboard: React.FC = () => {
       stars: 28
     }
   ];
-
-  const router = useRouter();
 
   const handleSubjectClick = (subjectId: string) => {
     console.log(`Opening subject: ${subjectId}`);

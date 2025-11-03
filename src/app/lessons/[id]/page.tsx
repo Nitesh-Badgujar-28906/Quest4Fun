@@ -7,7 +7,7 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { redirect, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+
 import { 
   ArrowLeft, 
   ArrowRight,
@@ -30,7 +30,7 @@ interface Lesson {
   duration: number;
   content: {
     type: string;
-    data: any;
+    data: Record<string, unknown>;
   };
   isCompleted: boolean;
   stars: number;
@@ -166,7 +166,7 @@ const getLessonData = (lessonId: string): Lesson => {
   return lessons[lessonId] || lessons['math-1'];
 };
 
-const CountingActivity = ({ numbers, objects }: any) => {
+const CountingActivity = ({ objects = [] }: { numbers?: number[]; objects?: string[] }) => {
   const [currentNumber, setCurrentNumber] = useState(1);
   
   return (
@@ -203,7 +203,7 @@ const CountingActivity = ({ numbers, objects }: any) => {
   );
 };
 
-const AdditionActivity = ({ problems }: any) => {
+const AdditionActivity = ({ problems = [] }: { problems?: Array<{ a: number; b: number; answer: number }> }) => {
   const [currentProblem, setCurrentProblem] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   
@@ -253,7 +253,7 @@ const AdditionActivity = ({ problems }: any) => {
   );
 };
 
-const AlphabetActivity = ({ letters }: any) => {
+const AlphabetActivity = ({ letters = [] }: { letters?: string[] }) => {
   const [currentLetter, setCurrentLetter] = useState(0);
   
   return (
@@ -313,13 +313,18 @@ const LessonContent = ({ lesson }: { lesson: Lesson }) => {
 export default function LessonPage({ 
   params 
 }: { 
-  params: { id: string } 
+  params: Promise<{ id: string }> 
 }) {
   const { user, userType, isLoading } = useAuth();
   const router = useRouter();
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [lessonId, setLessonId] = useState<string | null>(null);
+
+  useEffect(() => {
+    params.then(p => setLessonId(p.id));
+  }, [params]);
 
   useEffect(() => {
     if (!isLoading && (!user || userType !== 'child')) {
@@ -328,10 +333,10 @@ export default function LessonPage({
   }, [user, userType, isLoading]);
 
   useEffect(() => {
-    if (params.id) {
-      setLesson(getLessonData(params.id));
+    if (lessonId) {
+      setLesson(getLessonData(lessonId));
     }
-  }, [params.id]);
+  }, [lessonId]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;

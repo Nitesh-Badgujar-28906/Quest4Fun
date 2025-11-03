@@ -18,7 +18,8 @@ import {
   Lock,
   Star,
   Trophy,
-  ArrowLeft 
+  ArrowLeft,
+  LucideIcon
 } from 'lucide-react';
 
 interface Lesson {
@@ -37,7 +38,7 @@ interface Subject {
   id: string;
   name: string;
   description: string;
-  icon: any;
+  icon: LucideIcon;
   color: string;
   bgColor: string;
   totalLessons: number;
@@ -45,16 +46,6 @@ interface Subject {
   progress: number;
   lessons: Lesson[];
 }
-
-const getSubjectIcon = (subjectId: string) => {
-  const icons: { [key: string]: any } = {
-    'math': Calculator,
-    'english': BookOpen,
-    'science': Globe,
-    'art': Palette,
-  };
-  return icons[subjectId] || BookOpen;
-};
 
 const getSubjectData = (subjectId: string): Subject => {
   const subjects: { [key: string]: Subject } = {
@@ -250,11 +241,16 @@ const getSubjectData = (subjectId: string): Subject => {
 export default function SubjectPage({ 
   params 
 }: { 
-  params: { id: string } 
+  params: Promise<{ id: string }> 
 }) {
   const { user, userType, isLoading } = useAuth();
   const router = useRouter();
   const [subject, setSubject] = useState<Subject | null>(null);
+  const [subjectId, setSubjectId] = useState<string | null>(null);
+
+  useEffect(() => {
+    params.then(p => setSubjectId(p.id));
+  }, [params]);
 
   useEffect(() => {
     if (!isLoading && (!user || userType !== 'child')) {
@@ -263,10 +259,10 @@ export default function SubjectPage({
   }, [user, userType, isLoading]);
 
   useEffect(() => {
-    if (params.id) {
-      setSubject(getSubjectData(params.id));
+    if (subjectId) {
+      setSubject(getSubjectData(subjectId));
     }
-  }, [params.id]);
+  }, [subjectId]);
 
   if (isLoading || !subject) {
     return (
