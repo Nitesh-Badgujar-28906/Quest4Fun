@@ -7,6 +7,9 @@ import { collection, addDoc, getDocs, doc, setDoc } from 'firebase/firestore';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 interface DiagnosticResult {
   test: string;
   status: 'success' | 'error' | 'pending';

@@ -7,6 +7,9 @@ import { signInAnonymously } from 'firebase/auth';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 interface TestResult {
   test: string;
   status: 'success' | 'error' | 'pending';
