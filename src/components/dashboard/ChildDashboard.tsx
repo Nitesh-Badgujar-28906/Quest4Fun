@@ -52,8 +52,8 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject, index, onClick }) =>
       <Card className={`${subject.bgColor} border-0 cursor-pointer overflow-hidden relative`} onClick={onClick}>
         <div className="p-6">
           {/* Subject Icon */}
-          <div className="w-12 h-12 bg-white/30 rounded-xl flex items-center justify-center mb-4">
-            <Icon size={24} className="text-white drop-shadow" />
+          <div className="w-12 h-12 bg-white/30 rounded-xl flex items-center justify-center mb-4 text-white [&>svg]:drop-shadow">
+            <Icon size={24} />
           </div>
 
           {/* Subject Info */}
@@ -93,12 +93,11 @@ interface StatsCardProps {
   title: string;
   value: string | number;
   icon: React.ComponentType<{ size?: number }>;
-  color: string;
   bgColor: string;
   trend?: string;
 }
 
-const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, color, bgColor, trend }) => (
+const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, bgColor, trend }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.9 }}
     animate={{ opacity: 1, scale: 1 }}
@@ -107,8 +106,8 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, color, 
     <Card className={`${bgColor} border-0 text-white`}>
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
-          <div className="w-12 h-12 bg-white/30 rounded-xl flex items-center justify-center">
-            <Icon size={24} className="text-white drop-shadow" />
+          <div className="w-12 h-12 bg-white/30 rounded-xl flex items-center justify-center text-white [&>svg]:drop-shadow">
+            <Icon size={24} />
           </div>
           {trend && (
             <span className="text-white text-sm drop-shadow">+{trend}</span>
@@ -123,6 +122,7 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, color, 
 
 export const ChildDashboard: React.FC = () => {
   const { user } = useAuth();
+  const router = useRouter();
   
   if (!user) return null;
   
@@ -182,8 +182,6 @@ export const ChildDashboard: React.FC = () => {
     }
   ];
 
-  const router = useRouter();
-
   const handleSubjectClick = (subjectId: string) => {
     console.log(`Opening subject: ${subjectId}`);
     router.push(`/subjects/${subjectId}`);
@@ -211,7 +209,6 @@ export const ChildDashboard: React.FC = () => {
           title="Total Stars"
           value={child.totalStars || 124}
           icon={Star}
-          color="text-yellow-600"
           bgColor="bg-gradient-to-br from-yellow-500 to-orange-500"
           trend="12"
         />
@@ -219,7 +216,6 @@ export const ChildDashboard: React.FC = () => {
           title="Coins Earned"
           value={child.totalCoins || 85}
           icon={Coins}
-          color="text-blue-600"
           bgColor="bg-gradient-to-br from-blue-500 to-cyan-500"
           trend="8"
         />
@@ -227,14 +223,12 @@ export const ChildDashboard: React.FC = () => {
           title="Current Streak"
           value={`${child.currentStreak || 5} days`}
           icon={Target}
-          color="text-green-600"
           bgColor="bg-gradient-to-br from-green-500 to-emerald-500"
         />
         <StatsCard
           title="Achievements"
           value={child.badges?.length || 7}
           icon={Trophy}
-          color="text-purple-600"
           bgColor="bg-gradient-to-br from-purple-500 to-indigo-500"
           trend="2"
         />

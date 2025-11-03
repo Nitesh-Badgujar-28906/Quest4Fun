@@ -9,7 +9,7 @@ export interface Child {
   lastLogin: Date;
   totalStars: number;
   totalCoins: number;
-  badges: Badge[];
+  badges: string[]; // Badge IDs
   unlockedLevels: string[];
   currentStreak: number;
   preferences: {
@@ -34,8 +34,10 @@ export interface Subject {
   icon: string;
   color: string;
   description: string;
-  levels: Level[];
-  requiredGrades: string[];
+  levels?: Level[];
+  requiredGrades?: string[];
+  grades?: string[];
+  isActive?: boolean;
 }
 
 export interface Level {
@@ -44,12 +46,15 @@ export interface Level {
   levelNumber: number;
   title: string;
   description: string;
-  difficulty: 'easy' | 'medium' | 'hard';
-  prerequisites: string[]; // Level IDs
-  lessons: Lesson[];
-  isUnlocked: boolean;
-  starsRequired: number;
-  rewards: Reward[];
+  difficulty?: 'easy' | 'medium' | 'hard';
+  prerequisites?: string[]; // Level IDs
+  lessons?: Lesson[];
+  isUnlocked?: boolean;
+  starsRequired?: number;
+  rewards?: Reward[];
+  grade?: string;
+  isActive?: boolean;
+  estimatedDuration?: number;
 }
 
 export interface Lesson {
@@ -57,12 +62,16 @@ export interface Lesson {
   levelId: string;
   title: string;
   description: string;
-  type: 'quiz' | 'game' | 'story' | 'practice';
-  content: LessonContent;
+  type: 'quiz' | 'game' | 'story' | 'practice' | 'interactive';
+  content: LessonContent | Record<string, unknown>; // Allow flexible content types
   duration: number; // in minutes
-  maxStars: number;
+  maxStars?: number;
   audioUrl?: string;
   imageUrl?: string;
+  difficulty?: string;
+  order?: number;
+  isActive?: boolean;
+  createdAt?: Date;
 }
 
 export interface LessonContent {

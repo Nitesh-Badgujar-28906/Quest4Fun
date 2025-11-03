@@ -15,17 +15,15 @@ interface AppLayoutProps {
 
 export const AppLayout: React.FC<AppLayoutProps> = ({ 
   children, 
-  currentPage = 'dashboard',
+  currentPage = 'dashboard', // eslint-disable-line @typescript-eslint/no-unused-vars -- Part of interface
   showSidebar = true 
 }) => {
   const { userType } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [activePage, setActivePage] = useState(currentPage);
 
   const router = useRouter();
 
   const handleNavigate = (page: string) => {
-    setActivePage(page);
     setSidebarOpen(false);
     
     // Navigate to the appropriate route
@@ -85,7 +83,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       <div className="hidden lg:block">
         {showSidebar && (
           <Sidebar 
-            currentPage={activePage} 
             onNavigate={handleNavigate} 
           />
         )}
@@ -96,7 +93,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         {sidebarOpen && (
           <div className="lg:hidden">
             <Sidebar 
-              currentPage={activePage} 
               onNavigate={handleNavigate} 
             />
           </div>

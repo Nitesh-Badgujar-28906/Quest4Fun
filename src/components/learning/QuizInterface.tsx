@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -164,7 +164,7 @@ const TrueFalseQuestion: React.FC<{
 };
 
 export const QuizInterface: React.FC<QuizProps> = ({
-  lessonId,
+  lessonId, // eslint-disable-line @typescript-eslint/no-unused-vars -- Used for tracking quiz completion
   lessonTitle,
   questions,
   onComplete,
@@ -180,6 +180,21 @@ export const QuizInterface: React.FC<QuizProps> = ({
 
   const currentQ = questions[currentQuestion];
   const progress = ((currentQuestion + 1) / questions.length) * 100;
+
+  const handleQuizComplete = useCallback(() => {
+    const totalPoints = results.reduce((sum, result) => sum + result.pointsEarned, 0);
+    const maxPoints = questions.reduce((sum, q) => sum + q.points, 0);
+    const score = Math.round((totalPoints / maxPoints) * 100);
+    
+    // Calculate stars based on score
+    let starsEarned = 0;
+    if (score >= 90) starsEarned = 3;
+    else if (score >= 70) starsEarned = 2;
+    else if (score >= 50) starsEarned = 1;
+
+    setQuizComplete(true);
+    onComplete(score, starsEarned);
+  }, [results, questions, onComplete]);
 
   // Timer effect
   useEffect(() => {
@@ -197,7 +212,7 @@ export const QuizInterface: React.FC<QuizProps> = ({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, quizComplete]);
+  }, [timeLeft, quizComplete, handleQuizComplete]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -250,21 +265,6 @@ export const QuizInterface: React.FC<QuizProps> = ({
         handleQuizComplete();
       }
     }, 2000);
-  };
-
-  const handleQuizComplete = () => {
-    const totalPoints = results.reduce((sum, result) => sum + result.pointsEarned, 0);
-    const maxPoints = questions.reduce((sum, q) => sum + q.points, 0);
-    const score = Math.round((totalPoints / maxPoints) * 100);
-    
-    // Calculate stars based on score
-    let starsEarned = 0;
-    if (score >= 90) starsEarned = 3;
-    else if (score >= 70) starsEarned = 2;
-    else if (score >= 50) starsEarned = 1;
-
-    setQuizComplete(true);
-    onComplete(score, starsEarned);
   };
 
   const restartQuiz = () => {

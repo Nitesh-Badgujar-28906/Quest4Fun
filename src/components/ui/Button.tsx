@@ -4,7 +4,7 @@ import { LucideIcon } from 'lucide-react';
 
 interface ButtonProps {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
   variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'fun';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   disabled?: boolean;
@@ -51,7 +51,7 @@ const Button: React.FC<ButtonProps> = ({
   
   const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : 'btn-bounce cursor-pointer';
   
-  const handleClick = () => {
+  const handleClick = (e?: React.MouseEvent<HTMLButtonElement>) => {
     if (disabled || loading) return;
     
     // Play sound effect if enabled
@@ -59,7 +59,7 @@ const Button: React.FC<ButtonProps> = ({
       // You can add sound effects here later
     }
     
-    onClick?.();
+    onClick?.(e);
   };
 
   const buttonContent = (

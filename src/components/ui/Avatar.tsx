@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
+import Image from 'next/image';
 
 interface AvatarProps {
   src?: string;
@@ -84,13 +85,13 @@ const Avatar: React.FC<AvatarProps> = ({
         onClick={onClick}
       >
         {src ? (
-          <img
+          <Image
             src={src}
             alt={alt}
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.style.display = 'none';
+            fill
+            className="object-cover"
+            onError={() => {
+              // Handle error - could set fallback state
             }}
           />
         ) : fallback ? (

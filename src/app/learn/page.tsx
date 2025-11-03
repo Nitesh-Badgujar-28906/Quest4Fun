@@ -7,6 +7,7 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { redirect, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { LucideIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { 
   BookOpen, 
@@ -34,7 +35,7 @@ interface LearningActivity {
   subject: string;
   difficulty: 'easy' | 'medium' | 'hard';
   duration: number;
-  icon: any;
+  icon: LucideIcon;
   color: string;
   bgColor: string;
   isNew?: boolean;
@@ -340,7 +341,7 @@ export default function LearnPage() {
                       <Button 
                         className="w-full flex items-center justify-center gap-2"
                         onClick={(e) => {
-                          e.stopPropagation();
+                          e?.stopPropagation();
                           handleActivityClick(activity.id);
                         }}
                       >
