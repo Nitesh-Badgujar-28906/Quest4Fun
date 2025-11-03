@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { redirect } from 'next/navigation';
 import { collection, doc, setDoc, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import Button from '@/components/ui/Button';
@@ -185,10 +186,23 @@ const seedData = {
   ] as Lesson[]
 };
 
+/* eslint-disable react-hooks/rules-of-hooks */
+// This is a development-only page that is blocked in production
 export default function DataSeeder() {
   const [status, setStatus] = useState<string>('Ready to seed data');
   const [isSeeding, setIsSeeding] = useState(false);
   const [seedResults, setSeedResults] = useState<Record<string, number>>({});
+
+  // Restrict to development environment only
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      redirect('/');
+    }
+  }, []);
+
+  if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
 
   const seedFirestore = async () => {
     setIsSeeding(true);

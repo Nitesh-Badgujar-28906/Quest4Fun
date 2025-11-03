@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { redirect } from 'next/navigation';
 import { auth, db } from '@/lib/firebase';
 import { signInAnonymously, signOut } from 'firebase/auth';
 import { collection, addDoc, getDocs, doc, setDoc } from 'firebase/firestore';
@@ -14,9 +15,22 @@ interface DiagnosticResult {
   error?: string;
 }
 
+/* eslint-disable react-hooks/rules-of-hooks */
+// This is a development-only page that is blocked in production
 export default function FirebaseDiagnostic() {
   const [results, setResults] = useState<DiagnosticResult[]>([]);
   const [isRunning, setIsRunning] = useState(false);
+
+  // Restrict to development environment only
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      redirect('/');
+    }
+  }, []);
+
+  if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
 
   const addResult = (result: DiagnosticResult) => {
     setResults(prev => [...prev, result]);

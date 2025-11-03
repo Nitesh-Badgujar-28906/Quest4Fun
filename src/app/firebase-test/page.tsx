@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { redirect } from 'next/navigation';
 import { collection, addDoc, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '@/lib/firebase';
 import { signInAnonymously } from 'firebase/auth';
@@ -14,9 +15,22 @@ interface TestResult {
   duration?: number;
 }
 
+/* eslint-disable react-hooks/rules-of-hooks */
+// This is a development-only page that is blocked in production
 export default function FirebaseTest() {
   const [testResults, setTestResults] = useState<TestResult[]>([]);
   const [isRunning, setIsRunning] = useState(false);
+
+  // Restrict to development environment only
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      redirect('/');
+    }
+  }, []);
+
+  if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
 
   const addTestResult = (result: TestResult) => {
     setTestResults(prev => [...prev, result]);
