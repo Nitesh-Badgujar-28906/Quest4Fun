@@ -13,9 +13,6 @@ import {
   User, 
   Bell, 
   Volume2, 
-  VolumeX,
-  Moon,
-  Sun,
   Shield,
   HelpCircle,
   LogOut,
@@ -24,7 +21,6 @@ import {
   X,
   Camera,
   Palette,
-  Globe,
   Lock,
   Mail,
   Phone
@@ -116,7 +112,7 @@ export default function SettingsPage() {
     return null; // Will redirect
   }
 
-  const handleSettingChange = (category: keyof UserSettings, setting: string, value: any) => {
+  const handleSettingChange = (category: keyof UserSettings, setting: string, value: string | boolean | number) => {
     setSettings(prev => ({
       ...prev,
       [category]: {
@@ -136,7 +132,7 @@ export default function SettingsPage() {
     logout();
   };
 
-  const TabButton = ({ id, label, icon: Icon }: { id: string; label: string; icon: any }) => (
+  const TabButton = ({ id, label, icon: Icon }: { id: string; label: string; icon: React.ComponentType<{ className?: string }> }) => (
     <button
       onClick={() => setSelectedTab(id)}
       className={`flex items-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
@@ -346,7 +342,7 @@ export default function SettingsPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <h3 className="font-semibold text-gray-800">Weekly Progress Report</h3>
-                          <p className="text-sm text-gray-600">Get a summary of your week's learning</p>
+                          <p className="text-sm text-gray-600">Get a summary of your week&apos;s learning</p>
                         </div>
                         <ToggleSwitch 
                           enabled={settings.notifications.weeklyProgress}

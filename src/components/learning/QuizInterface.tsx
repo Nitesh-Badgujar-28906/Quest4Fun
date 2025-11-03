@@ -164,7 +164,6 @@ const TrueFalseQuestion: React.FC<{
 };
 
 export const QuizInterface: React.FC<QuizProps> = ({
-  lessonId,
   lessonTitle,
   questions,
   onComplete,

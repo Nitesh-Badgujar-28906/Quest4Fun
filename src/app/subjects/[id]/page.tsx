@@ -18,7 +18,8 @@ import {
   Lock,
   Star,
   Trophy,
-  ArrowLeft 
+  ArrowLeft,
+  LucideIcon
 } from 'lucide-react';
 
 interface Lesson {
@@ -37,7 +38,7 @@ interface Subject {
   id: string;
   name: string;
   description: string;
-  icon: any;
+  icon: LucideIcon;
   color: string;
   bgColor: string;
   totalLessons: number;
@@ -46,8 +47,8 @@ interface Subject {
   lessons: Lesson[];
 }
 
-const getSubjectIcon = (subjectId: string) => {
-  const icons: { [key: string]: any } = {
+const getSubjectIcon = (subjectId: string): LucideIcon => {
+  const icons: { [key: string]: LucideIcon } = {
     'math': Calculator,
     'english': BookOpen,
     'science': Globe,

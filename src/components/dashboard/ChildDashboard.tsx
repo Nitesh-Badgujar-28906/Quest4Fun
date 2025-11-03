@@ -98,7 +98,7 @@ interface StatsCardProps {
   trend?: string;
 }
 
-const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, color, bgColor, trend }) => (
+const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, bgColor, trend }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.9 }}
     animate={{ opacity: 1, scale: 1 }}
@@ -123,6 +123,7 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon: Icon, color, 
 
 export const ChildDashboard: React.FC = () => {
   const { user } = useAuth();
+  const router = useRouter();
   
   if (!user) return null;
   
@@ -181,8 +182,6 @@ export const ChildDashboard: React.FC = () => {
       stars: 28
     }
   ];
-
-  const router = useRouter();
 
   const handleSubjectClick = (subjectId: string) => {
     console.log(`Opening subject: ${subjectId}`);

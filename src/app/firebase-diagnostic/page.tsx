@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { auth, db } from '@/lib/firebase';
 import { signInAnonymously, signOut } from 'firebase/auth';
-import { collection, addDoc, getDocs, doc, setDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 
@@ -12,6 +12,15 @@ interface DiagnosticResult {
   status: 'success' | 'error' | 'pending';
   message: string;
   error?: string;
+}
+
+interface FirebaseError {
+  code?: string;
+  message?: string;
+}
+
+function isFirebaseError(error: unknown): error is FirebaseError {
+  return typeof error === 'object' && error !== null && 'code' in error;
 }
 
 export default function FirebaseDiagnostic() {
@@ -65,21 +74,23 @@ export default function FirebaseDiagnostic() {
         status: 'success',
         message: `Anonymous user created: ${userCredential.user.uid}`
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       let errorMessage = 'Unknown authentication error';
-      if (error.code === 'auth/operation-not-allowed') {
-        errorMessage = 'Anonymous authentication is not enabled. Enable it in Firebase Console → Authentication → Sign-in method';
-      } else if (error.code === 'auth/network-request-failed') {
-        errorMessage = 'Network error. Check your internet connection.';
-      } else if (error.code === 'auth/invalid-api-key') {
-        errorMessage = 'Invalid API key. Check your Firebase configuration.';
+      if (isFirebaseError(error)) {
+        if (error.code === 'auth/operation-not-allowed') {
+          errorMessage = 'Anonymous authentication is not enabled. Enable it in Firebase Console → Authentication → Sign-in method';
+        } else if (error.code === 'auth/network-request-failed') {
+          errorMessage = 'Network error. Check your internet connection.';
+        } else if (error.code === 'auth/invalid-api-key') {
+          errorMessage = 'Invalid API key. Check your Firebase configuration.';
+        }
       }
       
       addResult({
         test: 'Anonymous Authentication',
         status: 'error',
         message: errorMessage,
-        error: `${error.code}: ${error.message}`
+        error: isFirebaseError(error) ? `${error.code}: ${error.message}` : 'Unknown error'
       });
     }
 
@@ -98,19 +109,21 @@ export default function FirebaseDiagnostic() {
         status: 'success',
         message: `Read ${snapshot.size} documents from subjects collection`
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       let errorMessage = 'Unknown Firestore error';
-      if (error.code === 'permission-denied') {
-        errorMessage = 'Permission denied. Update Firestore security rules to allow public reads for subjects.';
-      } else if (error.code === 'unavailable') {
-        errorMessage = 'Firestore service unavailable. Enable Firestore Database in Firebase Console.';
+      if (isFirebaseError(error)) {
+        if (error.code === 'permission-denied') {
+          errorMessage = 'Permission denied. Update Firestore security rules to allow public reads for subjects.';
+        } else if (error.code === 'unavailable') {
+          errorMessage = 'Firestore service unavailable. Enable Firestore Database in Firebase Console.';
+        }
       }
       
       addResult({
         test: 'Firestore Read (Public)',
         status: 'error',
         message: errorMessage,
-        error: `${error.code}: ${error.message}`
+        error: isFirebaseError(error) ? `${error.code}: ${error.message}` : 'Unknown error'
       });
     }
 
@@ -138,19 +151,21 @@ export default function FirebaseDiagnostic() {
         status: 'success',
         message: `Successfully wrote document: ${docRef.id}`
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       let errorMessage = 'Unknown write error';
-      if (error.code === 'permission-denied') {
-        errorMessage = 'Permission denied. Update Firestore security rules to allow authenticated writes.';
-      } else if (error.code === 'unauthenticated') {
-        errorMessage = 'User not authenticated. This test requires a signed-in user.';
+      if (isFirebaseError(error)) {
+        if (error.code === 'permission-denied') {
+          errorMessage = 'Permission denied. Update Firestore security rules to allow authenticated writes.';
+        } else if (error.code === 'unauthenticated') {
+          errorMessage = 'User not authenticated. This test requires a signed-in user.';
+        }
       }
       
       addResult({
         test: 'Firestore Write (Authenticated)',
         status: 'error',
         message: errorMessage,
-        error: `${error.code}: ${error.message}`
+        error: isFirebaseError(error) ? `${error.code}: ${error.message}` : 'Unknown error'
       });
     }
 
@@ -179,12 +194,12 @@ export default function FirebaseDiagnostic() {
           error: 'Missing sample data'
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       addResult({
         test: 'Sample Data Check',
         status: 'error',
         message: 'Could not check sample data',
-        error: `${error.code}: ${error.message}`
+        error: isFirebaseError(error) ? `${error.code}: ${error.message}` : 'Unknown error'
       });
     }
 
@@ -267,7 +282,7 @@ export default function FirebaseDiagnostic() {
           
           {results.length === 0 && !isRunning && (
             <p className="text-gray-500 text-center py-8">
-              Click "Run Diagnostics" to check your Firebase setup
+              Click &quot;Run Diagnostics&quot; to check your Firebase setup
             </p>
           )}
 
