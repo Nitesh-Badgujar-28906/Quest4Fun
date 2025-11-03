@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Modal from '@/components/ui/Modal';
 import { createChild } from '@/lib/firestore';
@@ -94,9 +93,9 @@ export const AddStudentModal: React.FC<AddStudentModalProps> = ({
         onStudentAdded?.();
       }, 2000);
 
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error adding student:', err);
-      setError(err.message || 'Failed to add student. Please try again.');
+      setError(err instanceof Error ? err.message : 'Failed to add student. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

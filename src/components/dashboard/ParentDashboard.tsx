@@ -9,20 +9,15 @@ import Avatar from '@/components/ui/Avatar';
 import { AddStudentModal } from '@/components/dashboard/AddStudentModal';
 import { useAuth } from '@/context/AuthContext';
 import {
-  User,
   TrendingUp,
-  Clock,
   Target,
   BookOpen,
-  Award,
-  Calendar,
   Settings,
   Download,
   Eye,
   Star,
   Trophy,
   BarChart3,
-  PieChart,
   Users,
   Shield,
   Timer,
@@ -162,7 +157,7 @@ export const ParentDashboard: React.FC = () => {
 
   if (!user) return null;
   
-  const parentId = (user as any).id || 'demo-parent';
+  const parentId = (user as { id?: string }).id || 'demo-parent';
 
   // Mock data - in real app, this would come from Firebase
   const children: ChildProgress[] = [
