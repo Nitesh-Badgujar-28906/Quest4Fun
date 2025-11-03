@@ -85,19 +85,19 @@ const ChildLogin: React.FC<ChildLoginProps> = ({ onSwitchToParent }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-sky flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-8"
+        className="text-center mb-12"
       >
-        <div className="text-8xl mb-4">🎓</div>
-        <h1 className="text-white text-child-4xl font-bold mb-2">
+        <div className="text-8xl mb-6">🎓</div>
+        <h1 className="text-text-primary text-5xl font-bold mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
           Welcome to Quest4Fun!
         </h1>
-        <p className="text-white/90 text-child-lg">
+        <p className="text-text-secondary text-xl">
           Choose your profile to start learning
         </p>
       </motion.div>
@@ -107,9 +107,9 @@ const ChildLogin: React.FC<ChildLoginProps> = ({ onSwitchToParent }) => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-child mb-6 max-w-md"
+          className="bg-red-100 border border-red-400 text-red-700 px-6 py-4 rounded-2xl mb-6 max-w-md shadow-card"
         >
-          <p className="text-child-sm">{error}</p>
+          <p className="text-sm font-medium">{error}</p>
         </motion.div>
       )}
 
@@ -126,12 +126,12 @@ const ChildLogin: React.FC<ChildLoginProps> = ({ onSwitchToParent }) => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.95 }}
             className={`
-              bg-white rounded-child-xl p-6 shadow-child-lg cursor-pointer
-              transition-all duration-200 hover:shadow-child-lg
-              ${selectedChild === child.id ? 'ring-4 ring-primary-yellow' : ''}
+              bg-card rounded-2xl p-8 shadow-card cursor-pointer
+              transition-all duration-200 hover:shadow-card-hover
+              ${selectedChild === child.id ? 'ring-4 ring-button-primary' : ''}
             `}
             onClick={() => handleChildSelect(child.id)}
           >
@@ -155,26 +155,26 @@ const ChildLogin: React.FC<ChildLoginProps> = ({ onSwitchToParent }) => {
 
             {/* Child Info */}
             <div className="text-center">
-              <h3 className="text-child-xl font-bold text-gray-800 mb-1">
+              <h3 className="text-2xl font-bold text-text-primary mb-2">
                 {child.name}
               </h3>
-              <p className="text-child-sm text-gray-600 mb-3">
+              <p className="text-sm text-text-secondary mb-4">
                 Grade {child.grade} • Age {child.age}
               </p>
 
               {/* Stats */}
-              <div className="flex justify-center items-center gap-4 text-child-sm">
-                <div className="flex items-center gap-1">
-                  <span className="text-primary-yellow">⭐</span>
-                  <span className="font-medium">{child.totalStars}</span>
+              <div className="flex justify-center items-center gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl" style={{ color: '#F1C40F' }}>⭐</span>
+                  <span className="font-semibold text-text-primary">{child.totalStars}</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-primary-orange">🪙</span>
-                  <span className="font-medium">{child.totalCoins}</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl" style={{ color: '#F39C12' }}>🪙</span>
+                  <span className="font-semibold text-text-primary">{child.totalCoins}</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-primary-green">🔥</span>
-                  <span className="font-medium">{child.currentStreak}</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl" style={{ color: '#E74C3C' }}>🔥</span>
+                  <span className="font-semibold text-text-primary">{child.currentStreak}</span>
                 </div>
               </div>
             </div>
@@ -187,16 +187,14 @@ const ChildLogin: React.FC<ChildLoginProps> = ({ onSwitchToParent }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="mt-8"
+        className="mt-10"
       >
-        <Button
-          variant="secondary"
-          size="lg"
+        <button
           onClick={() => {/* TODO: Implement add child */}}
-          className="bg-white/20 text-white border-2 border-white/30 hover:bg-white/30"
+          className="px-8 py-4 bg-card text-text-primary font-semibold rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-200 hover:scale-105"
         >
           + Add New Child
-        </Button>
+        </button>
       </motion.div>
 
       {/* Parent Login Link */}
@@ -204,11 +202,11 @@ const ChildLogin: React.FC<ChildLoginProps> = ({ onSwitchToParent }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="mt-8"
+        className="mt-6"
       >
         <button
           onClick={onSwitchToParent}
-          className="text-white/80 hover:text-white text-child-sm underline transition-colors"
+          className="text-text-secondary hover:text-text-primary text-sm font-medium underline transition-colors"
         >
           Parent? Click here to access parent dashboard
         </button>

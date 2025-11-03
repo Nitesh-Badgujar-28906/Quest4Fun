@@ -6,6 +6,7 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import ProgressBar from '@/components/ui/ProgressBar';
 import Avatar from '@/components/ui/Avatar';
+import { AddStudentModal } from '@/components/dashboard/AddStudentModal';
 import { useAuth } from '@/context/AuthContext';
 import {
   User,
@@ -26,7 +27,9 @@ import {
   Shield,
   Timer,
   CheckCircle,
-  AlertTriangle
+  AlertTriangle,
+  LogOut,
+  UserPlus
 } from 'lucide-react';
 
 interface ChildProgress {
@@ -152,11 +155,14 @@ const SubjectProgressChart: React.FC<{
 };
 
 export const ParentDashboard: React.FC = () => {
-  const { user } = useAuth();
-  const [selectedChild, setSelectedChild] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'overview' | 'progress' | 'reports' | 'settings'>('overview');
+  const { user, logout } = useAuth();
+  const [selectedChild, setSelectedChild] = useState<string>('1');
+  const [activeTab, setActiveTab] = useState('overview');
+  const [isAddStudentModalOpen, setIsAddStudentModalOpen] = useState(false);
 
   if (!user) return null;
+  
+  const parentId = (user as any).id || 'demo-parent';
 
   // Mock data - in real app, this would come from Firebase
   const children: ChildProgress[] = [
@@ -225,12 +231,26 @@ export const ParentDashboard: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
-          Parent Dashboard 👨‍👩‍👧‍👦
-        </h1>
-        <p className="text-gray-600">
-          Monitor your children&apos;s learning progress and celebrate their achievements
-        </p>
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">
+              Parent Dashboard 👨‍👩‍👧‍👦
+            </h1>
+            <p className="text-gray-600">
+              Monitor your children&apos;s learning progress and celebrate their achievements
+            </p>
+          </div>
+          <Button
+            variant="secondary"
+            size="md"
+            onClick={logout}
+            icon={LogOut}
+            iconPosition="left"
+            className="flex-shrink-0"
+          >
+            Logout
+          </Button>
+        </div>
       </motion.div>
 
       {/* Summary Stats */}
@@ -304,7 +324,18 @@ export const ParentDashboard: React.FC = () => {
         <div className="space-y-8">
           {/* Children Progress Cards */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Children&apos;s Progress</h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">Children&apos;s Progress</h2>
+              <Button
+                variant="primary"
+                size="md"
+                onClick={() => setIsAddStudentModalOpen(true)}
+                icon={UserPlus}
+                iconPosition="left"
+              >
+                Add Student
+              </Button>
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {children.map((child) => (
                 <ProgressCard
@@ -428,6 +459,18 @@ export const ParentDashboard: React.FC = () => {
           </div>
         </Card>
       )}
+
+      {/* Add Student Modal */}
+      <AddStudentModal
+        isOpen={isAddStudentModalOpen}
+        onClose={() => setIsAddStudentModalOpen(false)}
+        parentId={parentId}
+        onStudentAdded={() => {
+          // Refresh the children list
+          console.log('Student added successfully! Refreshing list...');
+          // In real app, this would refetch children from Firebase
+        }}
+      />
     </div>
   );
 };

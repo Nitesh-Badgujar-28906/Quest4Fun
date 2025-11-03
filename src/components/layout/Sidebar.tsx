@@ -112,7 +112,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
               >
                 <Icon 
                   size={20} 
-                  className={`${isActive ? 'text-blue-600' : item.color} ${isActive ? 'scale-110' : ''}`} 
+                  className={`${item.color} ${isActive ? 'scale-110' : ''}`} 
                 />
                 <span className={`font-medium ${
                   isActive ? 'text-gray-800' : 'text-gray-700'

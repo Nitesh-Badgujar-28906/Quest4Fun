@@ -114,8 +114,8 @@ const learningActivities: LearningActivity[] = [
     difficulty: 'medium',
     duration: 12,
     icon: Brain,
-    color: 'text-indigo-600',
-    bgColor: 'bg-gradient-to-br from-indigo-400 to-indigo-600',
+    color: 'text-purple-600',
+    bgColor: 'bg-gradient-to-br from-purple-400 to-purple-600',
     isPopular: true
   }
 ];
@@ -152,7 +152,7 @@ export default function LearnPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 via-pink-500 to-red-500">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 via-pink-500 to-yellow-400">
         <div className="flex flex-col items-center gap-4">
           <LoadingSpinner size="lg" color="text-white" />
           <div className="text-white text-2xl font-bold">Loading Learning Center...</div>
@@ -175,7 +175,7 @@ export default function LearnPage() {
     switch (difficulty) {
       case 'easy': return 'bg-green-100 text-green-600';
       case 'medium': return 'bg-yellow-100 text-yellow-600';
-      case 'hard': return 'bg-red-100 text-red-600';
+      case 'hard': return 'bg-orange-100 text-orange-600';
       default: return 'bg-gray-100 text-gray-600';
     }
   };

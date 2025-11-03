@@ -7,7 +7,7 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import ProgressBar from '@/components/ui/ProgressBar';
 import { redirect, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { motion } from 'framer-motion';
 import { 
   BookOpen, 
@@ -250,11 +250,12 @@ const getSubjectData = (subjectId: string): Subject => {
 export default function SubjectPage({ 
   params 
 }: { 
-  params: { id: string } 
+  params: Promise<{ id: string }> 
 }) {
   const { user, userType, isLoading } = useAuth();
   const router = useRouter();
   const [subject, setSubject] = useState<Subject | null>(null);
+  const { id } = use(params);
 
   useEffect(() => {
     if (!isLoading && (!user || userType !== 'child')) {
@@ -263,10 +264,10 @@ export default function SubjectPage({
   }, [user, userType, isLoading]);
 
   useEffect(() => {
-    if (params.id) {
-      setSubject(getSubjectData(params.id));
+    if (id) {
+      setSubject(getSubjectData(id));
     }
-  }, [params.id]);
+  }, [id]);
 
   if (isLoading || !subject) {
     return (

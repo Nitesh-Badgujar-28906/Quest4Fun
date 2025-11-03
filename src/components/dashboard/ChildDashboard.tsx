@@ -141,7 +141,7 @@ export const ChildDashboard: React.FC = () => {
       name: 'Mathematics',
       icon: Calculator,
       color: 'text-blue-600',
-      bgColor: 'bg-gradient-to-br from-blue-500 to-blue-600',
+      bgColor: 'bg-gradient-to-br from-blue-400 to-blue-600',
       progress: 75,
       totalLessons: 20,
       completedLessons: 15,
@@ -152,7 +152,7 @@ export const ChildDashboard: React.FC = () => {
       name: 'English',
       icon: BookOpen,
       color: 'text-green-600',
-      bgColor: 'bg-gradient-to-br from-green-500 to-green-600',
+      bgColor: 'bg-gradient-to-br from-green-400 to-green-600',
       progress: 60,
       totalLessons: 18,
       completedLessons: 11,
@@ -163,7 +163,7 @@ export const ChildDashboard: React.FC = () => {
       name: 'Science',
       icon: Globe,
       color: 'text-purple-600',
-      bgColor: 'bg-gradient-to-br from-purple-500 to-purple-600',
+      bgColor: 'bg-gradient-to-br from-purple-400 to-purple-600',
       progress: 40,
       totalLessons: 15,
       completedLessons: 6,
@@ -174,7 +174,7 @@ export const ChildDashboard: React.FC = () => {
       name: 'Art & Craft',
       icon: Palette,
       color: 'text-pink-600',
-      bgColor: 'bg-gradient-to-br from-pink-500 to-pink-600',
+      bgColor: 'bg-gradient-to-br from-pink-400 to-pink-600',
       progress: 85,
       totalLessons: 12,
       completedLessons: 10,
@@ -212,7 +212,7 @@ export const ChildDashboard: React.FC = () => {
           value={child.totalStars || 124}
           icon={Star}
           color="text-yellow-600"
-          bgColor="bg-gradient-to-br from-yellow-500 to-orange-500"
+          bgColor="bg-gradient-to-br from-yellow-400 to-orange-600"
           trend="12"
         />
         <StatsCard
@@ -220,7 +220,7 @@ export const ChildDashboard: React.FC = () => {
           value={child.totalCoins || 85}
           icon={Coins}
           color="text-blue-600"
-          bgColor="bg-gradient-to-br from-blue-500 to-cyan-500"
+          bgColor="bg-gradient-to-br from-blue-400 to-blue-600"
           trend="8"
         />
         <StatsCard
@@ -228,14 +228,14 @@ export const ChildDashboard: React.FC = () => {
           value={`${child.currentStreak || 5} days`}
           icon={Target}
           color="text-green-600"
-          bgColor="bg-gradient-to-br from-green-500 to-emerald-500"
+          bgColor="bg-gradient-to-br from-green-400 to-green-600"
         />
         <StatsCard
           title="Achievements"
           value={child.badges?.length || 7}
           icon={Trophy}
           color="text-purple-600"
-          bgColor="bg-gradient-to-br from-purple-500 to-indigo-500"
+          bgColor="bg-gradient-to-br from-purple-400 to-purple-600"
           trend="2"
         />
       </div>
@@ -247,7 +247,7 @@ export const ChildDashboard: React.FC = () => {
         transition={{ delay: 0.2 }}
         className="mb-8"
       >
-        <Card className="bg-gradient-to-r from-indigo-500 to-purple-600 border-0 text-white">
+        <Card className="bg-gradient-to-r from-blue-500 to-purple-600 border-0 text-white">
           <div className="p-6 lg:p-8">
             <div className="flex flex-col lg:flex-row items-center justify-between">
               <div className="mb-4 lg:mb-0">

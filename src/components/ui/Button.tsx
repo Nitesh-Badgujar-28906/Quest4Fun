@@ -31,25 +31,25 @@ const Button: React.FC<ButtonProps> = ({
   animate = true,
   sound = true
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center font-bold rounded-child transition-all duration-200 focus-visible:focus shadow-child';
+  const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variantClasses = {
-    primary: 'bg-primary-blue hover:bg-blue-600 text-white shadow-colorful',
-    secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-800',
-    success: 'bg-primary-green hover:bg-green-600 text-white shadow-success',
-    warning: 'bg-primary-orange hover:bg-orange-600 text-white shadow-warning',
-    danger: 'bg-red-500 hover:bg-red-600 text-white',
-    fun: 'bg-gradient-rainbow hover:bg-gradient-sunset text-white'
+    primary: 'bg-[#4A90E2] hover:bg-[#357ABD] text-white shadow-card hover:shadow-card-hover focus:ring-[#4A90E2]',
+    secondary: 'bg-gray-300 hover:bg-gray-400 text-text-primary border-2 border-gray-400 hover:border-gray-500 shadow-card hover:shadow-card-hover',
+    success: 'bg-primary-green hover:bg-green-600 text-white shadow-card hover:shadow-card-hover focus:ring-green-500',
+    warning: 'bg-primary-orange hover:bg-orange-600 text-white shadow-card hover:shadow-card-hover focus:ring-orange-500',
+    danger: 'bg-primary-red hover:bg-red-600 text-white shadow-card hover:shadow-card-hover focus:ring-red-500',
+    fun: 'bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-400 hover:from-purple-500 hover:via-pink-600 hover:to-yellow-500 text-white shadow-card hover:shadow-card-hover'
   };
   
   const sizeClasses = {
-    sm: 'px-3 py-2 text-child-sm gap-1',
-    md: 'px-4 py-3 text-child-base gap-2',
-    lg: 'px-6 py-4 text-child-lg gap-2',
-    xl: 'px-8 py-5 text-child-xl gap-3'
+    sm: 'px-4 py-2 text-sm gap-2',
+    md: 'px-6 py-3 text-base gap-2',
+    lg: 'px-8 py-4 text-lg gap-3',
+    xl: 'px-10 py-5 text-xl gap-3'
   };
   
-  const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : 'btn-bounce cursor-pointer';
+  const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed hover:scale-100' : 'cursor-pointer hover:scale-105';
   
   const handleClick = () => {
     if (disabled || loading) return;

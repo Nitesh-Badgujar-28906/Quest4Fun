@@ -67,17 +67,17 @@ const ParentLogin: React.FC<ParentLoginProps> = ({ onSwitchToChild }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-forest flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
       {/* Back Button */}
       <motion.button
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4 }}
         onClick={onSwitchToChild}
-        className="absolute top-6 left-6 flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+        className="absolute top-6 left-6 flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors"
       >
         <ArrowLeft className="w-5 h-5" />
-        <span className="text-sm">Back to Child Login</span>
+        <span className="text-sm font-medium">Back to Child Login</span>
       </motion.button>
 
       {/* Header */}
@@ -85,13 +85,13 @@ const ParentLogin: React.FC<ParentLoginProps> = ({ onSwitchToChild }) => {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-8"
+        className="text-center mb-10"
       >
-        <div className="text-6xl mb-4">👨‍👩‍👧‍👦</div>
-        <h1 className="text-white text-3xl font-bold mb-2">
+        <div className="text-7xl mb-6">👨‍👩‍👧‍👦</div>
+        <h1 className="text-text-primary text-4xl font-bold mb-3" style={{ fontFamily: 'Poppins, sans-serif' }}>
           Parent Dashboard
         </h1>
-        <p className="text-white/90 text-base">
+        <p className="text-text-secondary text-lg">
           Monitor your child&apos;s learning progress
         </p>
       </motion.div>
@@ -101,7 +101,7 @@ const ParentLogin: React.FC<ParentLoginProps> = ({ onSwitchToChild }) => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="bg-white rounded-child-xl shadow-child-lg p-8 w-full max-w-md"
+        className="bg-card rounded-2xl shadow-card p-10 w-full max-w-md"
       >
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Error Message */}
@@ -117,7 +117,7 @@ const ParentLogin: React.FC<ParentLoginProps> = ({ onSwitchToChild }) => {
 
           {/* Email Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-text-primary mb-2">
               Email Address
             </label>
             <input
@@ -125,23 +125,23 @@ const ParentLogin: React.FC<ParentLoginProps> = ({ onSwitchToChild }) => {
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
               className={`
-                w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors
+                w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 transition-colors text-text-primary
                 ${validationErrors.email 
                   ? 'border-red-400 focus:ring-red-400' 
-                  : 'border-gray-300 focus:ring-primary-blue'
+                  : 'border-gray-300 focus:ring-button-primary'
                 }
               `}
               placeholder="parent@example.com"
               disabled={isLoading}
             />
             {validationErrors.email && (
-              <p className="text-red-600 text-xs mt-1">{validationErrors.email}</p>
+              <p className="text-red-600 text-xs mt-2 font-medium">{validationErrors.email}</p>
             )}
           </div>
 
           {/* PIN Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-text-primary mb-2">
               4-Digit PIN
             </label>
             <div className="relative">
@@ -150,11 +150,11 @@ const ParentLogin: React.FC<ParentLoginProps> = ({ onSwitchToChild }) => {
                 value={formData.pin}
                 onChange={(e) => handlePinInput(e.target.value)}
                 className={`
-                  w-full px-4 py-3 pr-12 border rounded-lg focus:outline-none focus:ring-2 transition-colors
-                  font-mono text-center text-lg tracking-widest
+                  w-full px-4 py-3 pr-12 border-2 rounded-xl focus:outline-none focus:ring-2 transition-colors
+                  font-mono text-center text-lg tracking-widest text-text-primary
                   ${validationErrors.pin 
                     ? 'border-red-400 focus:ring-red-400' 
-                    : 'border-gray-300 focus:ring-primary-blue'
+                    : 'border-gray-300 focus:ring-button-primary'
                   }
                 `}
                 placeholder="••••"
@@ -176,16 +176,13 @@ const ParentLogin: React.FC<ParentLoginProps> = ({ onSwitchToChild }) => {
           </div>
 
           {/* Submit Button */}
-          <Button
+          <button
             type="submit"
-            variant="primary"
-            size="lg"
-            loading={isLoading}
             disabled={isLoading}
-            className="w-full"
+            className="w-full py-4 bg-button-primary hover:bg-button-hover text-white font-semibold rounded-xl shadow-card hover:shadow-card-hover transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
             {isLoading ? 'Signing In...' : 'Sign In'}
-          </Button>
+          </button>
         </form>
 
         {/* Demo Credentials */}
@@ -193,10 +190,10 @@ const ParentLogin: React.FC<ParentLoginProps> = ({ onSwitchToChild }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200"
+          className="mt-6 p-5 bg-blue-50 rounded-xl border-2 border-blue-200"
         >
-          <h4 className="text-sm font-medium text-blue-800 mb-2">Demo Credentials:</h4>
-          <div className="text-xs text-blue-700 space-y-1">
+          <h4 className="text-sm font-semibold text-text-primary mb-2">Demo Credentials:</h4>
+          <div className="text-sm text-text-secondary space-y-1">
             <p><strong>Email:</strong> parent@quest4fun.com</p>
             <p><strong>PIN:</strong> 1234</p>
           </div>
@@ -204,7 +201,7 @@ const ParentLogin: React.FC<ParentLoginProps> = ({ onSwitchToChild }) => {
             onClick={() => {
               setFormData({ email: 'parent@quest4fun.com', pin: '1234' });
             }}
-            className="text-xs text-blue-600 hover:text-blue-800 underline mt-2"
+            className="text-sm text-button-primary hover:text-button-hover font-medium underline mt-3"
             disabled={isLoading}
           >
             Use demo credentials
@@ -213,7 +210,7 @@ const ParentLogin: React.FC<ParentLoginProps> = ({ onSwitchToChild }) => {
 
         {/* Security Note */}
         <div className="mt-6 text-center">
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-text-secondary font-medium">
             🔒 Your data is secure and encrypted
           </p>
         </div>
@@ -224,19 +221,19 @@ const ParentLogin: React.FC<ParentLoginProps> = ({ onSwitchToChild }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="mt-8 grid grid-cols-3 gap-4 text-center max-w-md"
+        className="mt-10 grid grid-cols-3 gap-6 text-center max-w-md"
       >
-        <div className="text-white/80">
-          <div className="text-2xl mb-1">📊</div>
-          <p className="text-xs">Progress Tracking</p>
+        <div className="text-text-secondary">
+          <div className="text-3xl mb-2">📊</div>
+          <p className="text-sm font-medium">Track Progress</p>
         </div>
-        <div className="text-white/80">
-          <div className="text-2xl mb-1">🎯</div>
-          <p className="text-xs">Learning Goals</p>
+        <div className="text-text-secondary">
+          <div className="text-3xl mb-2">🔒</div>
+          <p className="text-sm font-medium">Safe & Secure</p>
         </div>
-        <div className="text-white/80">
-          <div className="text-2xl mb-1">📈</div>
-          <p className="text-xs">Detailed Reports</p>
+        <div className="text-text-secondary">
+          <div className="text-3xl mb-2">📈</div>
+          <p className="text-sm font-medium">Detailed Reports</p>
         </div>
       </motion.div>
     </div>

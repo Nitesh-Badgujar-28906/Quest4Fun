@@ -25,7 +25,10 @@ service cloud.firestore {
 
     // Children collection
     match /children/{childId} {
-      allow read, write: if isAuthenticated() && 
+      // Allow parents to create children with their own parentId
+      allow create: if isAuthenticated() && isParent(request.resource.data.parentId);
+      // Allow reading and updating if the user is the child or the parent
+      allow read, update, delete: if isAuthenticated() && 
         (isChildOwner(childId) || isParent(resource.data.parentId));
     }
 

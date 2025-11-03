@@ -9,30 +9,50 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Primary colors - bright and cheerful
+        // Primary colors - modern and clean
         primary: {
-          blue: '#4299E1',
-          yellow: '#FFD93D',
+          blue: '#4A90E2',
+          darkBlue: '#1F3A93',
+          yellow: '#F1C40F',
           green: '#48BB78',
-          orange: '#F6AD55',
+          orange: '#F39C12',
           purple: '#9F7AEA',
           pink: '#F687B3',
+          red: '#E74C3C',
         },
         // Subject-specific colors
         subjects: {
-          math: '#4299E1',
+          math: '#4A90E2',
           english: '#48BB78',
-          evs: '#F6AD55',
+          evs: '#F39C12',
           science: '#9F7AEA',
           art: '#F687B3',
         },
+        // Text colors
+        text: {
+          primary: '#1F3A93',
+          secondary: '#5C6B73',
+        },
         // Background colors
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: '#F4F6FB',
+        foreground: '#1F3A93',
+        card: '#FFFFFF',
+        // Button colors
+        button: {
+          primary: '#4A90E2',
+          hover: '#357ABD',
+        },
+        // Icon colors
+        icons: {
+          star: '#F1C40F',
+          coin: '#F39C12',
+          flame: '#E74C3C',
+        },
       },
       fontFamily: {
-        'child-friendly': ['Comic Neue', 'Fredoka One', 'sans-serif'],
-        'parent': ['Inter', 'system-ui', 'sans-serif'],
+        'sans': ['Poppins', 'system-ui', 'sans-serif'],
+        'child-friendly': ['Comic Neue', 'Poppins', 'sans-serif'],
+        'parent': ['Poppins', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'child-xs': ['12px', '16px'],
@@ -78,17 +98,19 @@ const config: Config = {
         },
       },
       boxShadow: {
+        'card': '0 4px 8px rgba(0, 0, 0, 0.08)',
+        'card-hover': '0 8px 16px rgba(0, 0, 0, 0.12)',
         'child': '0 4px 12px rgba(0, 0, 0, 0.1)',
         'child-lg': '0 8px 24px rgba(0, 0, 0, 0.15)',
-        'colorful': '0 4px 12px rgba(66, 153, 225, 0.3)',
+        'colorful': '0 4px 12px rgba(74, 144, 226, 0.3)',
         'success': '0 4px 12px rgba(72, 187, 120, 0.3)',
-        'warning': '0 4px 12px rgba(246, 173, 85, 0.3)',
+        'warning': '0 4px 12px rgba(243, 156, 18, 0.3)',
       },
       backgroundImage: {
-        'gradient-rainbow': 'linear-gradient(45deg, #667eea 0%, #764ba2 100%)',
-        'gradient-sky': 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)',
-        'gradient-sunset': 'linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%)',
-        'gradient-forest': 'linear-gradient(135deg, #00b894 0%, #00cec9 100%)',
+        'gradient-rainbow': 'linear-gradient(45deg, #9F7AEA 0%, #F687B3 50%, #FFD93D 100%)',
+        'gradient-sky': 'linear-gradient(135deg, #4299E1 0%, #9F7AEA 100%)',
+        'gradient-sunset': 'linear-gradient(135deg, #F687B3 0%, #F6AD55 100%)',
+        'gradient-forest': 'linear-gradient(135deg, #48BB78 0%, #4299E1 100%)',
       }
     },
   },

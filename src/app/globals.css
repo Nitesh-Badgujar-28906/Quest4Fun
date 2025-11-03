@@ -1,25 +1,83 @@
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Fredoka+One&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Comic+Neue:wght@300;400;700&family=Fredoka+One&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #1a202c;
+  --background: #F4F6FB;
+  --foreground: #1F3A93;
+  --secondary-text: #5C6B73;
+  --card-bg: #FFFFFF;
+  --button-bg: #4A90E2;
+  --button-hover: #357ABD;
+  --star-color: #F1C40F;
+  --coin-color: #F39C12;
+  --flame-color: #E74C3C;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Comic Neue', 'Inter', sans-serif;
+  font-family: 'Poppins', 'Comic Neue', sans-serif;
   overflow-x: hidden;
 }
 
 /* Child-friendly styles */
 .child-mode {
-  font-family: 'Comic Neue', sans-serif;
+  font-family: 'Comic Neue', 'Poppins', sans-serif;
 }
 
 .parent-mode {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Modern card styles */
+.modern-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.modern-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Button styles */
+.modern-button {
+  background: var(--button-bg);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.modern-button:hover {
+  background: var(--button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Ensure buttons are always visible */
+button {
+  min-height: 40px;
+}
+
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Secondary button improvements */
+.btn-secondary {
+  background-color: #E2E8F0;
+  color: #1F3A93;
+  border: 2px solid #CBD5E0;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  background-color: #CBD5E0;
+  border-color: #A0AEC0;
 }
 
 /* Custom scrollbar for child mode */
@@ -111,7 +169,7 @@ body {
 
 /* Gradient backgrounds */
 .bg-gradient-rainbow {
-  background: linear-gradient(45deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+  background: linear-gradient(45deg, #9F7AEA 0%, #F687B3 50%, #FFD93D 100%);
   background-size: 400% 400%;
   animation: gradient-shift 3s ease infinite;
 }

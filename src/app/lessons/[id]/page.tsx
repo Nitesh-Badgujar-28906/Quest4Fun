@@ -6,7 +6,7 @@ import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { redirect, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { motion } from 'framer-motion';
 import { 
   ArrowLeft, 
@@ -195,6 +195,7 @@ const CountingActivity = ({ numbers, objects }: any) => {
         <Button
           onClick={() => setCurrentNumber(Math.min(10, currentNumber + 1))}
           disabled={currentNumber === 10}
+          variant="primary"
         >
           Next
         </Button>
@@ -245,6 +246,7 @@ const AdditionActivity = ({ problems }: any) => {
             setCurrentProblem((currentProblem + 1) % problems.length);
             setShowAnswer(false);
           }}
+          variant="primary"
         >
           Next Problem
         </Button>
@@ -280,6 +282,7 @@ const AlphabetActivity = ({ letters }: any) => {
         <Button
           onClick={() => setCurrentLetter(Math.min(letters.length - 1, currentLetter + 1))}
           disabled={currentLetter === letters.length - 1}
+          variant="primary"
         >
           Next
         </Button>
@@ -313,13 +316,14 @@ const LessonContent = ({ lesson }: { lesson: Lesson }) => {
 export default function LessonPage({ 
   params 
 }: { 
-  params: { id: string } 
+  params: Promise<{ id: string }> 
 }) {
   const { user, userType, isLoading } = useAuth();
   const router = useRouter();
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const { id } = use(params);
 
   useEffect(() => {
     if (!isLoading && (!user || userType !== 'child')) {
@@ -328,10 +332,10 @@ export default function LessonPage({
   }, [user, userType, isLoading]);
 
   useEffect(() => {
-    if (params.id) {
-      setLesson(getLessonData(params.id));
+    if (id) {
+      setLesson(getLessonData(id));
     }
-  }, [params.id]);
+  }, [id]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -345,7 +349,7 @@ export default function LessonPage({
 
   if (isLoading || !lesson) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 via-pink-500 to-red-500">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 via-pink-500 to-yellow-400">
         <div className="flex flex-col items-center gap-4">
           <LoadingSpinner size="lg" color="text-white" />
           <div className="text-white text-2xl font-bold">Loading Lesson...</div>
@@ -418,7 +422,7 @@ export default function LessonPage({
                       ? 'bg-green-100 text-green-600' 
                       : lesson.difficulty === 'medium'
                         ? 'bg-yellow-100 text-yellow-600'
-                        : 'bg-red-100 text-red-600'
+                        : 'bg-orange-100 text-orange-600'
                     }
                   `}>
                     {lesson.difficulty}

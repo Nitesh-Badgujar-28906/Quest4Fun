@@ -89,7 +89,7 @@ const seedData = {
       name: 'Mathematics',
       description: 'Learn numbers, counting, shapes, and basic arithmetic',
       icon: 'calculator',
-      color: '#3B82F6',
+      color: '#4299E1',
       grades: ['JKG', 'LKG', '1st', '2nd', '3rd', '4th'],
       isActive: true
     },
@@ -98,7 +98,7 @@ const seedData = {
       name: 'English',
       description: 'Reading, writing, vocabulary, and language skills',
       icon: 'book-open',
-      color: '#10B981',
+      color: '#48BB78',
       grades: ['JKG', 'LKG', '1st', '2nd', '3rd', '4th'],
       isActive: true
     },
@@ -107,7 +107,7 @@ const seedData = {
       name: 'Science',
       description: 'Explore the world around us through fun experiments',
       icon: 'globe',
-      color: '#8B5CF6',
+      color: '#9F7AEA',
       grades: ['1st', '2nd', '3rd', '4th'],
       isActive: true
     },
@@ -116,7 +116,7 @@ const seedData = {
       name: 'Art & Craft',
       description: 'Express creativity through drawing, coloring, and crafts',
       icon: 'palette',
-      color: '#EC4899',
+      color: '#F687B3',
       grades: ['JKG', 'LKG', '1st', '2nd', '3rd', '4th'],
       isActive: true
     }

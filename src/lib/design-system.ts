@@ -1,33 +1,54 @@
-// Quest4Fun Design System Colors
+// Quest4Fun Design System Colors - Updated Modern Theme
 export const colors = {
-  // Primary colors - bright and cheerful
+  // Primary colors - modern and clean
   primary: {
-    blue: '#4299E1',      // Main blue
-    yellow: '#FFD93D',    // Cheerful yellow
+    blue: '#4A90E2',      // Main blue
+    darkBlue: '#1F3A93',  // Primary text
+    yellow: '#F1C40F',    // Star yellow
     green: '#48BB78',     // Success green
-    orange: '#F6AD55',    // Warm orange
+    orange: '#F39C12',    // Coin orange
     purple: '#9F7AEA',    // Fun purple
     pink: '#F687B3',      // Playful pink
+    red: '#E74C3C',       // Flame red
   },
   
   // Semantic colors
   success: '#48BB78',
-  warning: '#F6AD55',
-  error: '#F56565',
-  info: '#4299E1',
+  warning: '#F39C12',
+  error: '#E74C3C',
+  info: '#4A90E2',
   
-  // Neutral colors
+  // Neutral colors - Updated for better contrast
   gray: {
-    50: '#F7FAFC',
+    50: '#F4F6FB',        // Background
     100: '#EDF2F7',
     200: '#E2E8F0',
     300: '#CBD5E0',
     400: '#A0AEC0',
-    500: '#718096',
+    500: '#5C6B73',       // Secondary text
     600: '#4A5568',
     700: '#2D3748',
-    800: '#1A202C',
+    800: '#1F3A93',       // Primary text
     900: '#171923',
+  },
+  
+  // Text colors
+  text: {
+    primary: '#1F3A93',
+    secondary: '#5C6B73',
+    white: '#FFFFFF',
+  },
+  
+  // Background colors
+  background: {
+    main: '#F4F6FB',
+    card: '#FFFFFF',
+  },
+  
+  // Button colors
+  button: {
+    primary: '#4A90E2',
+    hover: '#357ABD',
   },
   
   // Background gradients
@@ -40,11 +61,18 @@ export const colors = {
   
   // Subject-specific colors
   subjects: {
-    math: '#4299E1',      // Blue
+    math: '#4A90E2',      // Blue
     english: '#48BB78',   // Green
-    evs: '#F6AD55',      // Orange
+    evs: '#F39C12',      // Orange
     science: '#9F7AEA',  // Purple
     art: '#F687B3',      // Pink
+  },
+  
+  // Icon colors
+  icons: {
+    star: '#F1C40F',
+    coin: '#F39C12',
+    flame: '#E74C3C',
   }
 };
 

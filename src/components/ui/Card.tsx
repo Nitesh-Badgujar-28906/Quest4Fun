@@ -26,26 +26,26 @@ const Card: React.FC<CardProps> = ({
   shadow = true,
   animate = true
 }) => {
-  const baseClasses = 'rounded-child-lg transition-all duration-200';
+  const baseClasses = 'rounded-2xl transition-all duration-200';
   
   const variantClasses = {
-    default: 'bg-white border border-gray-200',
-    colorful: 'bg-gradient-sky border-0',
-    subject: 'bg-white border-2 border-transparent',
-    level: 'bg-gradient-to-br from-white to-gray-50 border border-gray-100',
-    achievement: 'bg-gradient-rainbow border-0'
+    default: 'bg-card border-2 border-gray-200',
+    colorful: 'bg-gradient-to-br from-button-primary to-purple-600 border-0',
+    subject: 'bg-card border-2 border-gray-200',
+    level: 'bg-card border-2 border-gray-200',
+    achievement: 'bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-400 border-0'
   };
   
   const paddingClasses = {
     none: '',
-    sm: 'p-3',
-    md: 'p-4',
-    lg: 'p-6',
-    xl: 'p-8'
+    sm: 'p-4',
+    md: 'p-6',
+    lg: 'p-8',
+    xl: 'p-10'
   };
   
-  const shadowClasses = shadow ? 'shadow-child' : '';
-  const hoverClasses = hover && !disabled ? 'hover:shadow-child-lg cursor-pointer' : '';
+  const shadowClasses = shadow ? 'shadow-card' : '';
+  const hoverClasses = hover && !disabled ? 'hover:shadow-card-hover cursor-pointer' : '';
   const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : '';
   
   const handleClick = () => {
