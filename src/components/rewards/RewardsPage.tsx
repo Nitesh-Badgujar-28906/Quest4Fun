@@ -13,14 +13,8 @@ import {
   Crown,
   Target,
   BookOpen,
-  Calendar,
-  TrendingUp,
   Zap,
-  Heart,
-  Shield,
   Sparkles,
-  Gift,
-  Users,
   Medal
 } from 'lucide-react';
 
@@ -440,7 +434,7 @@ export const RewardsPage: React.FC = () => {
               <Button
                 key={tab.id}
                 variant={activeTab === tab.id ? 'primary' : 'secondary'}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as 'overview' | 'badges' | 'shop')}
                 className="mr-2 last:mr-0"
               >
                 <Icon size={20} className="mr-2" />

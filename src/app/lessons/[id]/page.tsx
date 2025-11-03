@@ -7,7 +7,6 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { redirect, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import { 
   ArrowLeft, 
   ArrowRight,
@@ -30,7 +29,7 @@ interface Lesson {
   duration: number;
   content: {
     type: string;
-    data: any;
+    data: unknown;
   };
   isCompleted: boolean;
   stars: number;
@@ -166,7 +165,7 @@ const getLessonData = (lessonId: string): Lesson => {
   return lessons[lessonId] || lessons['math-1'];
 };
 
-const CountingActivity = ({ numbers, objects }: any) => {
+const CountingActivity = ({ objects }: { objects: string[] }) => {
   const [currentNumber, setCurrentNumber] = useState(1);
   
   return (
@@ -203,7 +202,7 @@ const CountingActivity = ({ numbers, objects }: any) => {
   );
 };
 
-const AdditionActivity = ({ problems }: any) => {
+const AdditionActivity = ({ problems }: { problems: { num1: number; num2: number; answer: number }[] }) => {
   const [currentProblem, setCurrentProblem] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   
@@ -253,7 +252,7 @@ const AdditionActivity = ({ problems }: any) => {
   );
 };
 
-const AlphabetActivity = ({ letters }: any) => {
+const AlphabetActivity = ({ letters }: { letters: string[] }) => {
   const [currentLetter, setCurrentLetter] = useState(0);
   
   return (

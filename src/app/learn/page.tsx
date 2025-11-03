@@ -23,7 +23,8 @@ import {
   Trophy,
   Play,
   Users,
-  Zap
+  Zap,
+  LucideIcon
 } from 'lucide-react';
 
 interface LearningActivity {
@@ -34,7 +35,7 @@ interface LearningActivity {
   subject: string;
   difficulty: 'easy' | 'medium' | 'hard';
   duration: number;
-  icon: any;
+  icon: LucideIcon;
   color: string;
   bgColor: string;
   isNew?: boolean;

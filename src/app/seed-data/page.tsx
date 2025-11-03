@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { collection, doc, setDoc, addDoc, getDocs } from 'firebase/firestore';
+import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { Child, Parent, Subject, Level, Lesson } from '@/types';
+
+export const dynamic = 'force-dynamic';
 
 const seedData = {
   // Sample children

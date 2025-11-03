@@ -18,19 +18,18 @@ import {
   Coins,
   Flame,
   Target,
-  Award,
-  Calendar,
   Zap,
   Diamond,
-  Heart,
-  Sparkles
+  Sparkles,
+  Calendar,
+  LucideIcon
 } from 'lucide-react';
 
 interface Badge {
   id: string;
   name: string;
   description: string;
-  icon: any;
+  icon: LucideIcon;
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
   isEarned: boolean;
   earnedDate?: string;
@@ -45,7 +44,7 @@ interface Reward {
   description: string;
   cost: number;
   type: 'avatar' | 'theme' | 'power-up' | 'unlock';
-  icon: any;
+  icon: LucideIcon;
   isUnlocked: boolean;
   isPurchased: boolean;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
 
@@ -84,9 +85,11 @@ const Avatar: React.FC<AvatarProps> = ({
         onClick={onClick}
       >
         {src ? (
-          <img
+          <Image
             src={src}
             alt={alt}
+            width={100}
+            height={100}
             className="w-full h-full object-cover"
             onError={(e) => {
               const target = e.target as HTMLImageElement;

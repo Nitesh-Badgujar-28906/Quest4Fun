@@ -164,7 +164,6 @@ const TrueFalseQuestion: React.FC<{
 };
 
 export const QuizInterface: React.FC<QuizProps> = ({
-  lessonId,
   lessonTitle,
   questions,
   onComplete,
@@ -180,6 +179,41 @@ export const QuizInterface: React.FC<QuizProps> = ({
 
   const currentQ = questions[currentQuestion];
   const progress = ((currentQuestion + 1) / questions.length) * 100;
+
+  const handleQuizComplete = () => {
+    // Calculate results
+    const calculatedResults = questions.map(q => {
+      const userAns = userAnswers[q.id];
+      const correct = Array.isArray(q.correctAnswer)
+        ? Array.isArray(userAns) && 
+          q.correctAnswer.length === userAns.length &&
+          q.correctAnswer.every(ans => userAns.includes(ans))
+        : userAns === q.correctAnswer;
+      
+      return {
+        questionId: q.id,
+        isCorrect: correct,
+        userAnswer: userAns,
+        correctAnswer: q.correctAnswer
+      };
+    });
+    
+    setResults(calculatedResults);
+    setQuizComplete(true);
+    
+    // Calculate score
+    const correctCount = calculatedResults.filter(r => r.isCorrect).length;
+    const score = (correctCount / questions.length) * 100;
+    const stars = score >= 90 ? 3 : score >= 70 ? 2 : score >= 50 ? 1 : 0;
+    
+    onComplete({
+      totalQuestions: questions.length,
+      correctAnswers: correctCount,
+      score: Math.round(score),
+      stars,
+      timeSpent: 300 - timeLeft
+    });
+  };
 
   // Timer effect
   useEffect(() => {
@@ -197,7 +231,7 @@ export const QuizInterface: React.FC<QuizProps> = ({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, quizComplete]);
+  }, [timeLeft, quizComplete, handleQuizComplete]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -252,20 +286,7 @@ export const QuizInterface: React.FC<QuizProps> = ({
     }, 2000);
   };
 
-  const handleQuizComplete = () => {
-    const totalPoints = results.reduce((sum, result) => sum + result.pointsEarned, 0);
-    const maxPoints = questions.reduce((sum, q) => sum + q.points, 0);
-    const score = Math.round((totalPoints / maxPoints) * 100);
-    
-    // Calculate stars based on score
-    let starsEarned = 0;
-    if (score >= 90) starsEarned = 3;
-    else if (score >= 70) starsEarned = 2;
-    else if (score >= 50) starsEarned = 1;
 
-    setQuizComplete(true);
-    onComplete(score, starsEarned);
-  };
 
   const restartQuiz = () => {
     setCurrentQuestion(0);
