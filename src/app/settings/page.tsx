@@ -9,6 +9,7 @@ import Avatar from '@/components/ui/Avatar';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { Child } from '@/types';
 import { 
   User, 
   Bell, 
@@ -116,6 +117,9 @@ export default function SettingsPage() {
     return null; // Will redirect
   }
 
+  // Type guard: At this point, user is a Child
+  const childUser = user as Child;
+
   const handleSettingChange = (category: keyof UserSettings, setting: string, value: any) => {
     setSettings(prev => ({
       ...prev,
@@ -209,8 +213,8 @@ export default function SettingsPage() {
                     <div className="flex items-center gap-6 mb-6">
                       <div className="relative">
                         <Avatar
-                          src={user.avatar}
-                          alt={user.name}
+                          src={childUser.avatar}
+                          alt={childUser.name}
                           size="xl"
                           className="border-4 border-blue-200"
                         />
@@ -238,7 +242,7 @@ export default function SettingsPage() {
                                 variant="secondary" 
                                 onClick={() => {
                                   setIsEditing(false);
-                                  setEditedName(user.name || '');
+                                  setEditedName(childUser.name || '');
                                 }}
                                 className="flex items-center gap-1"
                               >
@@ -249,8 +253,8 @@ export default function SettingsPage() {
                           </div>
                         ) : (
                           <div>
-                            <h3 className="text-2xl font-bold text-gray-800 mb-1">{user.name}</h3>
-                            <p className="text-gray-600 mb-4">Level {user.currentLevel || 1} Learner</p>
+                            <h3 className="text-2xl font-bold text-gray-800 mb-1">{childUser.name}</h3>
+                            <p className="text-gray-600 mb-4">Level {(childUser as any).currentLevel || childUser.grade || 1} Learner</p>
                             <Button 
                               variant="secondary" 
                               onClick={() => setIsEditing(true)}
@@ -266,15 +270,15 @@ export default function SettingsPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-blue-50 rounded-lg">
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-blue-600">{user.totalStars || 0}</div>
+                        <div className="text-2xl font-bold text-blue-600">{childUser.totalStars || 0}</div>
                         <div className="text-sm text-gray-600">Stars Earned</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-green-600">{user.totalCoins || 0}</div>
+                        <div className="text-2xl font-bold text-green-600">{childUser.totalCoins || 0}</div>
                         <div className="text-sm text-gray-600">Coins</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-orange-600">{user.currentStreak || 0}</div>
+                        <div className="text-2xl font-bold text-orange-600">{childUser.currentStreak || 0}</div>
                         <div className="text-sm text-gray-600">Day Streak</div>
                       </div>
                     </div>

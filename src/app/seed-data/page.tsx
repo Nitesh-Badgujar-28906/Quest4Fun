@@ -7,6 +7,9 @@ import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { Child, Parent, Subject, Level, Lesson } from '@/types';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 const seedData = {
   // Sample children
   children: [
@@ -26,7 +29,7 @@ const seedData = {
       currentStreak: 3,
       preferences: {
         soundEnabled: true,
-        difficultyLevel: 'easy'
+        difficultyLevel: 'easy' as const
       }
     },
     {
@@ -45,7 +48,7 @@ const seedData = {
       currentStreak: 5,
       preferences: {
         soundEnabled: true,
-        difficultyLevel: 'medium'
+        difficultyLevel: 'medium' as const
       }
     },
     {
@@ -64,10 +67,10 @@ const seedData = {
       currentStreak: 8,
       preferences: {
         soundEnabled: true,
-        difficultyLevel: 'medium'
+        difficultyLevel: 'medium' as const
       }
     }
-  ] as Child[],
+  ],
 
   // Sample parent
   parents: [
@@ -80,7 +83,7 @@ const seedData = {
       createdAt: new Date(),
       lastLogin: new Date()
     }
-  ] as Parent[],
+  ],
 
   // Sample subjects
   subjects: [
@@ -120,7 +123,7 @@ const seedData = {
       grades: ['JKG', 'LKG', '1st', '2nd', '3rd', '4th'],
       isActive: true
     }
-  ] as Subject[],
+  ],
 
   // Sample levels
   levels: [
@@ -144,7 +147,7 @@ const seedData = {
       isActive: true,
       estimatedDuration: 25
     }
-  ] as Level[],
+  ],
 
   // Sample lessons
   lessons: [
@@ -182,7 +185,7 @@ const seedData = {
       isActive: true,
       createdAt: new Date()
     }
-  ] as Lesson[]
+  ]
 };
 
 export default function DataSeeder() {
